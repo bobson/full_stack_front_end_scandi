@@ -5,7 +5,6 @@ import { getProductById } from "../../apollo/queries";
 
 import { client } from "../../apollo/client";
 
-// import "./product-page.styles.scss";
 import "./styles.scss";
 
 export default class ProductDescription extends Component {
@@ -28,6 +27,11 @@ export default class ProductDescription extends Component {
 
   componentDidMount() {
     this.updateProducts(this.props.id);
+  }
+
+  shouldComponentUpdate(prevProps, prevState) {
+    if (this.state.product.id !== prevState.product.id) return true;
+    else return false;
   }
 
   updateId = (newId) => {
@@ -63,7 +67,8 @@ export default class ProductDescription extends Component {
     const { addToCart } = this.props.context;
     const { product, selectedAttributes } = this.state;
     // console.log(this.props.context);
-    console.log(this.state.product);
+    console.log(this.state.id);
+    // console.log(this.state.product);
     // console.log(this.state.selectedAttributes);
     const { name, attributes, description, gallery, prices, brand } = product;
     if (this.state.loading) return <p>Loading...</p>;

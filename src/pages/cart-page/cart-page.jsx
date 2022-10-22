@@ -5,8 +5,9 @@ import { CartContext } from "../../context/cartContext";
 export default class CartPage extends Component {
   static contextType = CartContext;
   render() {
-    console.log(this.context.state);
+    // console.log(this.context.state);
     const { cartItems } = this.context.state;
+    const { addToCart } = this.context;
 
     return (
       <div>
@@ -14,7 +15,11 @@ export default class CartPage extends Component {
         {cartItems?.map((cartItem) => (
           <>
             <hr />
-            <CartItem key={cartItem.id} cartItem={cartItem} />
+            <CartItem
+              key={cartItem.id}
+              cartItem={cartItem}
+              addToCart={addToCart}
+            />
           </>
         ))}
       </div>

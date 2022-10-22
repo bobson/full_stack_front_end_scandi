@@ -24,6 +24,7 @@ $small: 40em;
       padding: 0;
       margin: 0;
     }
+
     p {
       margin: 2px 0;
       font-weight: 600;
@@ -64,11 +65,11 @@ $small: 40em;
         z-index: 0;
       }
 
-      .swatch-input:checked + .swatch {
+      .swatch-input:checked+.swatch {
         border: 2px solid #5ece7b;
       }
 
-      .radio-input:checked + .button-label {
+      .radio-input:checked+.button-label {
         background: #2b2b2b;
         color: $light;
       }
@@ -86,6 +87,7 @@ $small: 40em;
     align-items: center;
     justify-content: center;
 
+
     .quantity {
       display: flex;
       flex-direction: column;
@@ -102,6 +104,11 @@ $small: 40em;
         align-items: center;
         justify-content: center;
         border: 1px solid #1d1f22;
+        transition: all .3;
+
+        &:active {
+          transform: scale(.95)
+        }
       }
     }
 
@@ -109,153 +116,68 @@ $small: 40em;
       display: flex;
       justify-content: center;
       align-items: center;
-
-      img {
-        height: 100%;
-        width: 100%;
-      }
-    }
-  }
-}
-
-.product-page-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-
-  .images-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 20%;
-
-    .small-image {
-      // height: 100px;
-      width: 100%;
       overflow: hidden;
-      cursor: pointer;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: relative;
+      width: 100%;
+      height: 100%;
 
-      &:hover {
-        cursor: pointer;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-          0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      }
-
-      img {
+      .carousel-content {
         width: 100%;
-        object-fit: contain;
-        max-height: 150px;
-        // height: 100px;
-      }
-    }
-  }
 
-  .image-container {
-    width: 50%;
-    // height: 80vh;
-    overflow: hidden;
-    margin: 0 20px;
-
-    img {
-      object-fit: cover;
-      width: 100%;
-    }
-  }
-
-  .description-container {
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    h3 {
-      padding: 0;
-      margin: 0;
-    }
-    p {
-      margin-bottom: 2px;
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    .price {
-      margin-top: 30px;
-
-      p {
-        margin-top: 5px;
-      }
-    }
-
-    .attributes-container {
-      width: 100%;
-      display: flex;
-
-      .swatch {
-        width: 36px;
-        height: 36px;
-        margin-right: 5px;
-        border: 1px solid #1d1f22;
-        cursor: pointer;
-      }
-
-      .button-label {
-        margin-right: 5px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #1d1f22;
-        width: 63px;
-        height: 45px;
-        border: 1px solid #1d1f22;
-        user-select: none;
-        z-index: 0;
-
-        &:hover {
-          background: darken($light, 10%);
-          color: darken($dark, 10%);
+        img {
+          height: 100%;
+          max-height: 200px;
+          width: 100%;
+          object-fit: contain;
         }
       }
 
-      .swatch-input:checked + .swatch {
-        border: 2px solid #5ece7b;
-      }
-
-      .radio-input:checked + .button-label {
-        background: #2b2b2b;
-        color: $light;
-      }
-
-      .hidden {
+      .hide {
         display: none;
-        // visibility: hidden;
-        z-index: 1;
       }
-    }
 
-    .add-to-cart-button {
-      background-color: #5ece7b;
-      width: 100%;
-      border: none;
-      color: white;
-      padding: 16px 32px;
-      cursor: pointer;
-      margin: 20px 0;
-      font-size: 16px;
-      &:disabled {
-        cursor: inherit;
-        opacity: 0.5;
+      .fade {
+        animation-name: fade;
+        animation-duration: 1.5s;
+        display: block;
+        width: 100%;
+
+        @keyframes fade {
+          from {
+            opacity: .3
+          }
+
+          to {
+            opacity: 1
+          }
+        }
       }
-    }
-    .description * {
-      font-weight: 400;
-      font-size: 16px;
-      font-style: normal;
-      line-height: 159.96%;
+
+      .carousel-buttons {
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+        display: flex;
+        z-index: 1;
+
+        .carousel-button {
+          cursor: pointer;
+          border: none;
+          background: rgba(0, 0, 0, 0.73);
+          color: #FFFFFF;
+          margin: 3px;
+          height: 24px;
+          width: 24px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: all .3;
+
+          &:active {
+            transform: scale(.95)
+          }
+        }
+      }
     }
   }
 }

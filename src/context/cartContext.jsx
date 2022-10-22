@@ -5,6 +5,8 @@ export const CartContext = React.createContext();
 export class CartProvider extends Component {
   state = {
     cartItems: [],
+    cartCount: 0,
+    totalPrice: 0,
   };
 
   haveSameAttributes = (obj1, obj2) => {
@@ -17,6 +19,25 @@ export class CartProvider extends Component {
       );
     }
     return false;
+  };
+
+  updateCartCount = () => {
+    this.setState({
+      cartCount: this.state.cartItems.reduce(
+        (total, cartItem) => total + cartItem.quantity,
+        0
+      ),
+    });
+  };
+
+  updateTotalPrice = () => {
+    this.setState({
+      totalPrice: this.state.cartItems.reduce(
+        (total, cartItem) =>
+          total + cartItem.quantity * cartItem.prices[0].amount,
+        0
+      ),
+    });
   };
 
   addToCart = (product, selectedAttributes) => {
@@ -36,27 +57,40 @@ export class CartProvider extends Component {
             }
           : item;
       });
-      return this.setState({
-        cartItems: newArr,
-      });
+      return this.setState(
+        {
+          cartItems: newArr,
+        },
+        () => {
+          this.updateCartCount();
+          this.updateTotalPrice();
+        }
+      );
     }
 
-    this.setState({
-      cartItems: [
-        ...cartItems,
-        {
-          ...product,
-          selectedAttributes,
-          quantity: 1,
-        },
-      ],
-    });
+    this.setState(
+      {
+        cartItems: [
+          ...cartItems,
+          {
+            ...product,
+            selectedAttributes,
+            quantity: 1,
+          },
+        ],
+      },
+      () => {
+        this.updateCartCount();
+        this.updateTotalPrice();
+      }
+    );
   };
 
   removeFromCart = () => {};
 
   render() {
-    console.log(this.state.cartItems);
+    // console.log(this.state.cartCount);
+    // console.log(this.state.cartItems);
     const { state, addToCart } = this;
     return (
       <CartContext.Provider value={{ state, addToCart }}>
