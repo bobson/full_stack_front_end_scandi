@@ -1,42 +1,44 @@
 import { Component, Fragment } from "react";
+import AttributesForm from "../attributes-form/attributes-form";
+import Carousel from "./carousel/carousel";
 
 import "./styles.scss";
 
 export default class CartItem extends Component {
-  state = {
-    imageIndex: 0,
-  };
+  // state = {
+  //   imageIndex: 0,
+  // };
 
-  nextImage = (images) => {
-    this.state.imageIndex === images.length - 1
-      ? this.setState({ imageIndex: 0 })
-      : this.setState((prevState) => ({
-          imageIndex: prevState.imageIndex + 1,
-        }));
-  };
+  // nextImage = (images) => {
+  //   this.state.imageIndex === images.length - 1
+  //     ? this.setState({ imageIndex: 0 })
+  //     : this.setState((prevState) => ({
+  //         imageIndex: prevState.imageIndex + 1,
+  //       }));
+  // };
 
-  prevImage = (images) => {
-    console.log(images.length);
-    this.state.imageIndex === 0
-      ? this.setState({ imageIndex: images.length - 1 })
-      : this.setState((prevState) => ({
-          imageIndex: prevState.imageIndex - 1,
-        }));
-  };
+  // prevImage = (images) => {
+  //   console.log(images.length);
+  //   this.state.imageIndex === 0
+  //     ? this.setState({ imageIndex: images.length - 1 })
+  //     : this.setState((prevState) => ({
+  //         imageIndex: prevState.imageIndex - 1,
+  //       }));
+  // };
 
-  shouldComponentUpdate(prevProps, prevState) {
+  shouldComponentUpdate(prevProps, _prevState) {
     if (this.props.cartItem.quantity !== prevProps.cartItem.quantity)
       return true;
     else return false;
   }
 
   render() {
-    const { cartItem, addToCart } = this.props;
+    const { cartItem, addToCart, removeFromCart } = this.props;
     // console.log(this.props);
-    const { imageIndex } = this.state;
-    console.log(imageIndex);
+    // const { imageIndex } = this.state;
+    // console.log(imageIndex);
+    console.log("render cartpage");
     const {
-      id,
       name,
       attributes,
       gallery,
@@ -66,44 +68,18 @@ export default class CartItem extends Component {
             <div className="attributes" key={id}>
               <p>{name.toUpperCase()}:</p>
               <div className="attributes-container">
-                {items?.map((item, idx) => {
-                  return type === "swatch" ? (
-                    <Fragment key={item.id}>
-                      <input
-                        type="radio"
-                        id={item.id}
-                        value={item.value}
-                        name={`${cartItem.id}-${name}`}
-                        className="hidden swatch-input"
-                        defaultChecked={selectedAttributes[name] === item.value}
-                        disabled
-                      />
-                      <label
-                        style={{ backgroundColor: item.value }}
-                        className="swatch"
-                        htmlFor={item.id}
-                      />
-                    </Fragment>
-                  ) : (
-                    <Fragment key={idx}>
-                      <input
-                        type="radio"
-                        id={`${cartItem.id}-${item.id}`}
-                        value={item.value}
-                        name={`${cartItem.id}-${name}`}
-                        className="hidden radio-input"
-                        defaultChecked={selectedAttributes[name] === item.value}
-                        disabled
-                      />
-                      <label
-                        className="button-label"
-                        htmlFor={`${cartItem.id}-${item.id}`}
-                      >
-                        {item.value}
-                      </label>
-                    </Fragment>
-                  );
-                })}
+                {items?.map((item, idx) => (
+                  <AttributesForm
+                    key={item.id}
+                    attrType={type}
+                    id={`${cartItem.id}-${item.id}`}
+                    value={item.value}
+                    name={`${cartItem.id}-${name}`}
+                    htmlFor={`${cartItem.id}-${item.id}`}
+                    defaultChecked={selectedAttributes[name] === item.value}
+                    disabled
+                  />
+                ))}
               </div>
             </div>
           ))}
@@ -119,35 +95,16 @@ export default class CartItem extends Component {
               +
             </span>
             <span>{quantity}</span>
-            <span className="quantity-button">-</span>
+            <span
+              onClick={() => {
+                removeFromCart(cartItem);
+              }}
+              className="quantity-button"
+            >
+              -
+            </span>
           </div>
-          <div className="carousel">
-            <div className="carousel-buttons">
-              <button
-                onClick={() => this.prevImage(gallery)}
-                className="carousel-button prev"
-              >
-                &lt;
-              </button>
-              <button
-                onClick={() => this.nextImage(gallery)}
-                className="carousel-button next"
-              >
-                &gt;
-              </button>
-            </div>
-
-            <div className="carousel-content">
-              {gallery.map((img, idx) => (
-                <img
-                  key={img}
-                  className={idx === imageIndex ? "fade" : "hide"}
-                  src={img}
-                  alt={name}
-                />
-              ))}
-            </div>
-          </div>
+          <Carousel images={gallery} name={name} />
         </div>
       </div>
     );

@@ -19,8 +19,8 @@ class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <CategoryProvider>
-          <CartProvider>
+        <CartProvider>
+          <CategoryProvider>
             <Routes>
               <Route path="/" element={<Navigation />}>
                 <Route index element={<CategoryPage />} />
@@ -28,8 +28,8 @@ class App extends Component {
                 <Route path="cart" element={<CartPage />} />
               </Route>
             </Routes>
-          </CartProvider>
-        </CategoryProvider>
+          </CategoryProvider>
+        </CartProvider>
         {/* <Test /> */}
       </ApolloProvider>
     );

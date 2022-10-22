@@ -6,6 +6,8 @@ import { getProductById } from "../../apollo/queries";
 import { client } from "../../apollo/client";
 
 import "./styles.scss";
+import AttributesForm from "../attributes-form/attributes-form";
+import CustomButton from "../custom-button/custom-button";
 
 export default class ProductDescription extends Component {
   state = {
@@ -29,7 +31,7 @@ export default class ProductDescription extends Component {
     this.updateProducts(this.props.id);
   }
 
-  shouldComponentUpdate(prevProps, prevState) {
+  shouldComponentUpdate(_prevProps, prevState) {
     if (this.state.product.id !== prevState.product.id) return true;
     else return false;
   }
@@ -88,6 +90,7 @@ export default class ProductDescription extends Component {
         <div className="image-container">
           {gallery && <img src={gallery[this.state.imageIndex]} alt={name} />}
         </div>
+
         <div className="description-container">
           <h3>{brand}</h3>
           <h3 style={{ fontWeight: 400 }}>{name}</h3>
@@ -96,54 +99,20 @@ export default class ProductDescription extends Component {
             <Fragment key={id}>
               <p>{name.toUpperCase()}:</p>
               <div className="attributes-container" onChange={handleChange}>
-                {items?.map((item) => {
-                  return type === "swatch" ? (
-                    // <span
-                    //   key={item.id}
-                    //   style={{ backgroundColor: item.value }}
-                    //   className="swatch"
-                    //   onClick={() => console.log(name)}
-                    // />
-                    <Fragment key={item.id}>
-                      <input
-                        type="radio"
-                        id={`${name}-${item.id}`}
-                        name={name}
-                        value={item.value}
-                        className="hidden swatch-input"
-                      />
-                      <label
-                        style={{ backgroundColor: item.value }}
-                        className="swatch"
-                        htmlFor={`${name}-${item.id}`}
-                      />
-                    </Fragment>
-                  ) : (
-                    // <span onClick={() => console.log(name)} key={item.id}>
-                    //   {item.value}
-                    // </span>
-                    <Fragment key={item.id}>
-                      <input
-                        type="radio"
-                        id={`${name}-${item.id}`}
-                        value={item.value}
-                        name={name}
-                        className="hidden radio-input"
-
-                        // checked={true}
-                      />
-                      <label
-                        className="button-label"
-                        htmlFor={`${name}-${item.id}`}
-                      >
-                        {item.value}
-                      </label>
-                    </Fragment>
-                  );
-                })}
+                {items?.map((item) => (
+                  <AttributesForm
+                    key={item.id}
+                    id={`${name}-${item.id}`}
+                    name={name}
+                    value={item.value}
+                    attrType={type}
+                    htmlFor={`${name}-${item.id}`}
+                  />
+                ))}
               </div>
             </Fragment>
           ))}
+
           {prices && (
             <div className="price">
               <p>PRICE:</p>
@@ -153,18 +122,18 @@ export default class ProductDescription extends Component {
               </p>
             </div>
           )}
-          <button
-            onClick={async () => {
-              // this.updateId();
+
+          <CustomButton
+            onClick={() => {
               addToCart(product, selectedAttributes);
             }}
-            className="add-to-cart-button"
             disabled={
               Object.keys(selectedAttributes).length !== attributes?.length
             }
           >
             ADD TO CART
-          </button>
+          </CustomButton>
+
           {description && (
             <div className="description">{parse(`${description}`)}</div>
           )}

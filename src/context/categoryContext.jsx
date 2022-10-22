@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { CartContext } from "./cartContext";
 
 export const CategoryContext = React.createContext();
 
 export class CategoryProvider extends Component {
+  static contextType = CartContext;
   state = {
     title: "all",
   };
@@ -12,8 +14,9 @@ export class CategoryProvider extends Component {
 
   render() {
     const { state, handleClick } = this;
+    const { cartCount } = this.context.state;
     return (
-      <CategoryContext.Provider value={{ state, handleClick }}>
+      <CategoryContext.Provider value={{ state, handleClick, cartCount }}>
         {this.props.children}
       </CategoryContext.Provider>
     );

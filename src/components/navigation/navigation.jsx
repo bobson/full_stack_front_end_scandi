@@ -2,7 +2,7 @@ import { Component } from "react";
 import { CategoryContext } from "../../context/categoryContext";
 
 import { ReactComponent as Logo } from "../../assets/logo.svg";
-import { ReactComponent as ShoppingIcon } from "../../assets/shoppingIcon.svg";
+import { ReactComponent as EmptyCart } from "../../assets/Empty Cart.svg";
 
 import { Link, Outlet } from "react-router-dom";
 
@@ -13,6 +13,7 @@ class Navigation extends Component {
 
   render() {
     const { title } = this.context.state;
+    const { cartCount } = this.context;
 
     const { handleClick } = this.context;
     return (
@@ -52,8 +53,11 @@ class Navigation extends Component {
             {/* </div> */}
             <div className="icons-container">
               <Link to="cart">
-                <ShoppingIcon />
+                <EmptyCart />
               </Link>
+              {cartCount ? (
+                <span className="total-items">{cartCount}</span>
+              ) : null}
             </div>
           </div>
         </div>

@@ -27,6 +27,7 @@
         &:hover {
           color: #5ece7b;
         }
+
         &:before {
           content: "";
           position: absolute;
@@ -55,10 +56,39 @@
         color: #5ece7b;
       }
     }
+
+
+
     // .logo-container {
     // }
+
+
     .icons-container {
       justify-self: flex-end;
+      position: relative;
+
+      svg {
+        width: 30px;
+        height: 30px;
+        z-index: 1;
+      }
+
+      .total-items {
+        background: #1D1F22;
+        color: white;
+        border-radius: 60px;
+        height: 25px;
+        width: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        position: absolute;
+        top: -15%;
+        right: -35%;
+        font-weight: 700;
+
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 import { Component } from "react";
 import ProductDescription from "../../components/product-description/product-description";
 
-import withRouter from "../../components/withRouter";
+import withRouter from "./withRouter";
 import { CartContext } from "../../context/cartContext";
 
 class ProductPage extends Component {
