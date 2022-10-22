@@ -2,18 +2,16 @@ import { Component } from "react";
 
 import { Routes, Route } from "react-router-dom";
 
-// import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
-
-import CategoryPage from "./pages/category-page.jsx/category-page";
-
 import { client } from "./apollo/client";
-import ProductPage from "./pages/product-page/product-page";
 
 import { CategoryProvider } from "./context/categoryContext";
 import { CartProvider } from "./context/cartContext";
+
 import Navigation from "./components/navigation/navigation";
-import CartPage from "./pages/cart-page/cart-page";
+import CategoryPage from "./routes/category-page/category-page";
+import ProductPage from "./routes/product-page/product-page";
+import CartPage from "./routes/cart-page/cart-page";
 
 class App extends Component {
   render() {
