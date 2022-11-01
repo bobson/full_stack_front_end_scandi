@@ -1,5 +1,4 @@
 import { Component } from "react";
-import { CategoryContext } from "../../context/categoryContext";
 
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import { ReactComponent as EmptyCart } from "../../assets/Empty Cart.svg";
@@ -8,21 +7,40 @@ import { Link, Outlet } from "react-router-dom";
 
 import "./styles.scss";
 
+import CurrencySelector from "../currency-selector/currency-selector";
+import { CartContext } from "../../context/cartContext";
+import CartDropdown from "../cart-dropdown/cart-dropdown";
+
 class Navigation extends Component {
-  static contextType = CategoryContext;
+  static contextType = CartContext;
+
+  state = {
+    showDropdownCart: false,
+  };
+
+  handleDropdownCart = () =>
+    this.setState((prevState) => ({
+      showDropdownCart: !prevState.showDropdownCart,
+    }));
 
   render() {
-    const { title } = this.context.state;
-    const { cartCount } = this.context;
+    const { title, cartCount, cartItems, totalPrice, selectedCurrency } =
+      this.context.state;
+    const {
+      updateTotalPrice,
+      handleCategoryChange,
+      addToCart,
+      removeFromCart,
+      handleCurrencyChange,
+    } = this.context;
 
-    const { handleClick } = this.context;
     return (
       <>
         <div className="navigation-container">
           <div className="navigation">
             <div className=" nav-links-container">
               <span
-                onClick={handleClick}
+                onClick={handleCategoryChange}
                 className={`${
                   title === "all" ? "nav-link active" : "nav-link"
                 }`}
@@ -30,7 +48,7 @@ class Navigation extends Component {
                 ALL
               </span>
               <span
-                onClick={handleClick}
+                onClick={handleCategoryChange}
                 className={`${
                   title === "tech" ? "nav-link active" : "nav-link"
                 }`}
@@ -38,7 +56,7 @@ class Navigation extends Component {
                 TECH
               </span>
               <span
-                onClick={handleClick}
+                onClick={handleCategoryChange}
                 className={`${
                   title === "clothes" ? "nav-link active" : "nav-link"
                 }`}
@@ -52,14 +70,34 @@ class Navigation extends Component {
             </Link>
             {/* </div> */}
             <div className="icons-container">
-              <Link to="cart">
-                <EmptyCart />
-              </Link>
+              <CurrencySelector
+                updateTotalPrice={updateTotalPrice}
+                handleCurrencyChange={handleCurrencyChange}
+                selectedCurrency={selectedCurrency}
+              />
+              {/* <div onClick={this.handleDropdownCart}> */}
+              <EmptyCart onClick={this.handleDropdownCart} />
+              {/* </div> */}
+
               {cartCount ? (
                 <span className="total-items">{cartCount}</span>
               ) : null}
             </div>
           </div>
+          {this.state.showDropdownCart && (
+            <>
+              <div className="dropdown" />
+              <CartDropdown
+                cartItems={cartItems}
+                cartCount={cartCount}
+                totalPrice={totalPrice}
+                addToCart={addToCart}
+                removeFromCart={removeFromCart}
+                selectedCurrency={selectedCurrency}
+                handleDropdownCart={this.handleDropdownCart}
+              />
+            </>
+          )}
         </div>
         <Outlet />
       </>

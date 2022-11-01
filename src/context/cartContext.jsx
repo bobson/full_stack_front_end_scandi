@@ -4,9 +4,12 @@ export const CartContext = React.createContext();
 
 export class CartProvider extends Component {
   state = {
+    title: "all",
     cartItems: [],
     cartCount: 0,
     totalPrice: 0,
+    cartCurrency: { label: "", symbol: "" },
+    selectedCurrency: { label: "USD", symbol: "$" },
   };
 
   haveSameAttributes = (obj1, obj2) => {
@@ -21,6 +24,9 @@ export class CartProvider extends Component {
     return false;
   };
 
+  handleCategoryChange = (event) =>
+    this.setState({ title: event.target.innerText.toLowerCase() });
+
   updateCartCount = () => {
     this.setState({
       cartCount: this.state.cartItems.reduce(
@@ -31,18 +37,28 @@ export class CartProvider extends Component {
   };
 
   updateTotalPrice = () => {
+    const { cartItems, selectedCurrency } = this.state;
+
     this.setState({
-      totalPrice: this.state.cartItems.reduce(
+      totalPrice: cartItems.reduce(
         (total, cartItem) =>
-          total + cartItem.quantity * cartItem.prices[0].amount,
+          total +
+          cartItem.quantity *
+            cartItem.prices.filter(
+              (price) => price.currency.label === selectedCurrency.label
+            )[0].amount,
         0
       ),
     });
+    // }
   };
 
-  addToCart = (productToAdd, selectedAttributes) => {
-    const { cartItems } = this.state;
+  handleCurrencyChange = (label, symbol) => {
+    this.setState({ selectedCurrency: { label, symbol } });
+  };
 
+  addToCart = (productToAdd, selectedAttributes = {}) => {
+    const { cartItems } = this.state;
     const existingCartItem = cartItems.find(
       (item) => item.id === productToAdd.id
     );
@@ -111,7 +127,7 @@ export class CartProvider extends Component {
       );
     }
     //If quantity in not equal to 1
-    // return back cartitems with matching cart item with reduced quantity
+    // return back cartItems with matching cart item with reduced quantity
     const newArr = cartItems.map((cartItem) =>
       cartItem.id === productToRemove.id
         ? { ...cartItem, quantity: cartItem.quantity - 1 }
@@ -128,12 +144,33 @@ export class CartProvider extends Component {
     );
   };
 
+  componentDidUpdate(_prevProps, prevState) {
+    if (this.state.selectedCurrency.label !== prevState.selectedCurrency.label)
+      this.updateTotalPrice();
+  }
+
   render() {
-    // console.log(this.state.cartCount);
-    // console.log(this.state.cartItems);
-    const { state, addToCart, removeFromCart } = this;
+    // this.updateTotalPrice();
+    // console.log(this.context.selectedCurrency);
+    const {
+      state,
+      addToCart,
+      removeFromCart,
+      updateTotalPrice,
+      handleCategoryChange,
+      handleCurrencyChange,
+    } = this;
     return (
-      <CartContext.Provider value={{ state, addToCart, removeFromCart }}>
+      <CartContext.Provider
+        value={{
+          state,
+          addToCart,
+          removeFromCart,
+          updateTotalPrice,
+          handleCategoryChange,
+          handleCurrencyChange,
+        }}
+      >
         {this.props.children}
       </CartContext.Provider>
     );

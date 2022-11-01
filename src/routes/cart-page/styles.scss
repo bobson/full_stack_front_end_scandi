@@ -1,25 +1,26 @@
 .empty-cart {
-    text-align: center;
-    width: 100%;
+  text-align: center;
+  width: 100%;
 }
 
 .order-container {
-    width: 20%;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+
+  .order-row {
     display: flex;
-    flex-direction: column;
-    padding-top: 20px;
 
-    .order-row {
-        display: flex;
-        // justify-content: space-between;
-        // width: 100%;
+    span {
+      display: flex;
+      justify-content: flex-start;
+      margin: 3px 0;
+      width: 80px;
 
-        span {
-            display: flex;
-            justify-content: flex-start;
-            margin: 3px 0;
-            width: 80px;
-
-        }
+      &:nth-child(2) {
+        font-weight: 700;
+      }
     }
+  }
 }

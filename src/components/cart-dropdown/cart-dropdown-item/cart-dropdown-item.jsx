@@ -1,11 +1,10 @@
 import { Component, Fragment } from "react";
 
-import AttributesForm from "../attributes-form/attributes-form";
-import Carousel from "./carousel/carousel";
+import AttributesForm from "../../attributes-form/attributes-form";
 
 import "./styles.scss";
 
-export default class CartItem extends Component {
+export default class CartDropdownItem extends Component {
   shouldComponentUpdate(prevProps, _prevState) {
     if (
       this.props.cartItem.quantity !== prevProps.cartItem.quantity ||
@@ -19,7 +18,7 @@ export default class CartItem extends Component {
     const { cartItem, addToCart, removeFromCart, selectedCurrency } =
       this.props;
 
-    console.log(this.props);
+    // console.log(this.props);
     // const { imageIndex } = this.state;
     // console.log(imageIndex);
 
@@ -32,13 +31,13 @@ export default class CartItem extends Component {
       selectedAttributes,
       quantity,
     } = cartItem;
-    // console.log(this.props);
+    console.log(this.props);
     return (
-      <div className="cart-item-container">
-        <div className="cart-item-options-container">
+      <div className="cart-dropdown-item-container">
+        <div className="item-left-container">
           <div className="title">
-            <h3>{brand}</h3>
-            <h3 style={{ fontWeight: 400 }}>{name}</h3>
+            <p>{brand}</p>
+            <p>{name}</p>
           </div>
           {prices && (
             <div className="price">
@@ -55,16 +54,16 @@ export default class CartItem extends Component {
           )}
 
           {attributes?.map(({ id, items, name, type }) => (
-            <div className="attributes" key={id}>
+            <div className="dropdown-attributes" key={id}>
               <p>{name.toUpperCase()}:</p>
-              <div className="attributes-container">
+              <div className="dropdown-attributes-container">
                 {items?.map((item, idx) => (
                   <AttributesForm
                     key={item.id}
                     attrType={type}
                     id={`${cartItem.id}-${item.id}`}
                     value={item.value}
-                    name={`${cartItem.id}-${name}`}
+                    name={`dropdown-${cartItem.id}-${name}`}
                     htmlFor={`${cartItem.id}-${item.id}`}
                     defaultChecked={selectedAttributes[name] === item.value}
                     disabled
@@ -74,7 +73,7 @@ export default class CartItem extends Component {
             </div>
           ))}
         </div>
-        <div className="carousel-container">
+        <div className="item-right-container">
           <div className="quantity">
             <span
               onClick={() => {
@@ -94,7 +93,7 @@ export default class CartItem extends Component {
               -
             </span>
           </div>
-          <Carousel name={name} images={gallery} />
+          <img src={gallery[0]} alt={name} />
         </div>
       </div>
     );

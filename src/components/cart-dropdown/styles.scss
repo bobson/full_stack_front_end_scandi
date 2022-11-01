@@ -1,0 +1,45 @@
+.cart-dropdown-container {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  z-index: 4;
+  background: #ffffff;
+  padding: 0 10px;
+  overflow: hidden;
+
+  p {
+    span {
+      &:first-child {
+        font-weight: 700;
+      }
+    }
+  }
+
+  .total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+  }
+
+  .dropdown-buttons {
+    display: flex;
+    justify-content: space-between;
+
+    a {
+      width: 48%;
+      button {
+        width: 100%;
+      }
+    }
+
+    button {
+      // margin: 5px;
+      width: 48%;
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+}

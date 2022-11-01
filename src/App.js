@@ -5,7 +5,6 @@ import { Routes, Route } from "react-router-dom";
 import { ApolloProvider } from "react-apollo";
 import { client } from "./apollo/client";
 
-import { CategoryProvider } from "./context/categoryContext";
 import { CartProvider } from "./context/cartContext";
 
 import Navigation from "./components/navigation/navigation";
@@ -18,17 +17,14 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <CartProvider>
-          <CategoryProvider>
-            <Routes>
-              <Route path="/" element={<Navigation />}>
-                <Route index element={<CategoryPage />} />
-                <Route path="product/:id" element={<ProductPage />} />
-                <Route path="cart" element={<CartPage />} />
-              </Route>
-            </Routes>
-          </CategoryProvider>
+          <Routes>
+            <Route path="/" element={<Navigation />}>
+              <Route index element={<CategoryPage />} />
+              <Route path="product/:id" element={<ProductPage />} />
+              <Route path="cart" element={<CartPage />} />
+            </Route>
+          </Routes>
         </CartProvider>
-        {/* <Test /> */}
       </ApolloProvider>
     );
   }

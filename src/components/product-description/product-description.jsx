@@ -8,8 +8,10 @@ import { client } from "../../apollo/client";
 import "./styles.scss";
 import AttributesForm from "../attributes-form/attributes-form";
 import CustomButton from "../custom-button/custom-button";
+import { CartContext } from "../../context/cartContext";
 
 export default class ProductDescription extends Component {
+  static contextType = CartContext;
   state = {
     product: {},
     id: "",
@@ -32,7 +34,11 @@ export default class ProductDescription extends Component {
   }
 
   shouldComponentUpdate(_prevProps, prevState) {
-    if (this.state.product.id !== prevState.product.id) return true;
+    if (
+      this.state.product.id !== prevState.product.id ||
+      this.state.imageIndex !== prevState.imageIndex
+    )
+      return true;
     else return false;
   }
 
@@ -58,7 +64,7 @@ export default class ProductDescription extends Component {
       },
       () => {
         const newId = JSON.stringify(this.state.selectedAttributes);
-        console.log(newId);
+        // console.log(newId);
         this.updateId(newId);
       }
     );
@@ -66,10 +72,11 @@ export default class ProductDescription extends Component {
 
   render() {
     const { handleChange } = this;
-    const { addToCart } = this.props.context;
-    const { product, selectedAttributes } = this.state;
+    const { addToCart } = this.context;
+    const { product, selectedAttributes, imageIndex } = this.state;
+    const { selectedCurrency } = this.context.state;
     // console.log(this.props.context);
-    console.log(this.state.id);
+    // console.log(this.state.id);
     // console.log(this.state.product);
     // console.log(this.state.selectedAttributes);
     const { name, attributes, description, gallery, prices, brand } = product;
@@ -88,7 +95,7 @@ export default class ProductDescription extends Component {
           ))}
         </div>
         <div className="image-container">
-          {gallery && <img src={gallery[this.state.imageIndex]} alt={name} />}
+          {gallery && <img src={gallery[imageIndex]} alt={name} />}
         </div>
 
         <div className="description-container">
@@ -116,10 +123,15 @@ export default class ProductDescription extends Component {
           {prices && (
             <div className="price">
               <p>PRICE:</p>
-              <p>
-                {prices[0].currency.symbol}
-                {prices[0].amount}
-              </p>
+              {prices.map(
+                ({ currency, amount }) =>
+                  selectedCurrency.label === currency.label && (
+                    <p key={amount} className="price">
+                      {currency.symbol}
+                      {amount}
+                    </p>
+                  )
+              )}
             </div>
           )}
 

@@ -26,7 +26,7 @@ export default class Carousel extends Component {
   render() {
     const { images, name } = this.props;
     const { imageIndex } = this.state;
-    console.log("carousel");
+
     return (
       <div className="carousel">
         <div className="carousel-buttons">

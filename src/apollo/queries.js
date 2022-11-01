@@ -10,6 +10,16 @@ export const getProductsByCategory = gql`
         id
         name
         gallery
+        attributes {
+          id
+          name
+          type
+          items {
+            displayValue
+            value
+            id
+          }
+        }
         prices {
           currency {
             label
@@ -52,22 +62,11 @@ export const getProductById = gql`
     }
   }
 `;
-// export const testQuery = gql`
-//   query {
-//     category {
-//       name
-//       products {
-//         id
-//         name
-//         gallery
-//         prices {
-//           currency {
-//             label
-//             symbol
-//           }
-//           amount
-//         }
-//       }
-//     }
-//   }
-// `;
+export const getCurrencies = gql`
+  query {
+    currencies {
+      label
+      symbol
+    }
+  }
+`;
