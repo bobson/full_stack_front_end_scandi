@@ -29,20 +29,22 @@ export default class Carousel extends Component {
 
     return (
       <div className="carousel">
-        <div className="carousel-buttons">
-          <button
-            onClick={() => this.prevImage(images)}
-            className="carousel-button prev"
-          >
-            &lt;
-          </button>
-          <button
-            onClick={() => this.nextImage(images)}
-            className="carousel-button next"
-          >
-            &gt;
-          </button>
-        </div>
+        {images.length > 1 && (
+          <div className="carousel-buttons">
+            <button
+              onClick={() => this.prevImage(images)}
+              className="carousel-button prev"
+            >
+              &lt;
+            </button>
+            <button
+              onClick={() => this.nextImage(images)}
+              className="carousel-button next"
+            >
+              &gt;
+            </button>
+          </div>
+        )}
 
         <div className="carousel-content">
           {images?.map((img, idx) => (

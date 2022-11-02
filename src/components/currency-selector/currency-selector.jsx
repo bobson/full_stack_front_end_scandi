@@ -67,7 +67,6 @@ export default class CurrencySelector extends Component {
                 }}
               >
                 {symbol}
-                {"  "}
                 {label}
               </span>
             ))}

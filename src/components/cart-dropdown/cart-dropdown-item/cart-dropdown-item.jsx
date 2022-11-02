@@ -1,4 +1,4 @@
-import { Component, Fragment } from "react";
+import { Component } from "react";
 
 import AttributesForm from "../../attributes-form/attributes-form";
 
@@ -18,10 +18,6 @@ export default class CartDropdownItem extends Component {
     const { cartItem, addToCart, removeFromCart, selectedCurrency } =
       this.props;
 
-    // console.log(this.props);
-    // const { imageIndex } = this.state;
-    // console.log(imageIndex);
-
     const {
       name,
       attributes,
@@ -31,7 +27,7 @@ export default class CartDropdownItem extends Component {
       selectedAttributes,
       quantity,
     } = cartItem;
-    console.log(this.props);
+
     return (
       <div className="cart-dropdown-item-container">
         <div className="item-left-container">

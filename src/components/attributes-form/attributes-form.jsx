@@ -11,12 +11,12 @@ export default class AttributesForm extends Component {
       <Fragment>
         <input
           type="radio"
-          id={id}
-          value={value}
-          name={name}
           className={
             attrType !== "swatch" ? "hidden radio-input" : "hidden swatch-input"
           }
+          id={id}
+          value={value}
+          name={name}
           defaultChecked={defaultChecked}
           disabled={disabled}
         />

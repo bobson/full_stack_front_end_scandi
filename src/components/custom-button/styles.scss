@@ -1,38 +1,37 @@
 .add-to-cart-button {
-    background-color: #5ece7b;
-    width: 100%;
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    cursor: pointer;
-    margin: 20px 0;
-    font-size: 16px;
-    transition: all .2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: #5ece7b;
+  width: 100%;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  cursor: pointer;
+  margin: 20px 0;
+  font-size: 16px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    box-shadow: 0px 15px 25px -5px rgba(#5ece7b, 40%);
+  }
+
+  &:active {
+    box-shadow: 0px 4px 8px rgba(#5ece7b, 30%);
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    cursor: inherit;
+    opacity: 0.5;
 
     &:hover {
-        box-shadow: 0px 15px 25px -5px rgba(#5ece7b, 40%);
-        // transform: scale(1.01)
+      box-shadow: none;
     }
 
     &:active {
-        box-shadow: 0px 4px 8px rgba(#5ece7b, 30%);
-        transform: scale(.95)
+      transform: none;
+      box-shadow: none;
     }
-
-    &:disabled {
-        cursor: inherit;
-        opacity: 0.5;
-
-        &:hover {
-            box-shadow: none;
-        }
-
-        &:active {
-            transform: none;
-            box-shadow: none;
-        }
-    }
+  }
 }

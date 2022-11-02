@@ -1,6 +1,4 @@
 import { gql } from "@apollo/client";
-// import gql from "react-apollo";
-// import gql from "graphql-tag";
 
 export const getProductsByCategory = gql`
   query ($input: CategoryInput) {
@@ -10,6 +8,7 @@ export const getProductsByCategory = gql`
         id
         name
         gallery
+        inStock
         attributes {
           id
           name

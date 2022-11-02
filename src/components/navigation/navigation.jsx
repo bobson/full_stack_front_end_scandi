@@ -1,15 +1,17 @@
-import { Component } from "react";
+import { Component, Fragment } from "react";
 
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import { ReactComponent as EmptyCart } from "../../assets/Empty Cart.svg";
 
 import { Link, Outlet } from "react-router-dom";
 
-import "./styles.scss";
-
 import CurrencySelector from "../currency-selector/currency-selector";
 import { CartContext } from "../../context/cartContext";
 import CartDropdown from "../cart-dropdown/cart-dropdown";
+
+import "./styles.scss";
+
+const categories = ["all", "tech", "clothes"];
 
 class Navigation extends Component {
   static contextType = CartContext;
@@ -35,49 +37,35 @@ class Navigation extends Component {
     } = this.context;
 
     return (
-      <>
+      <Fragment>
         <div className="navigation-container">
           <div className="navigation">
             <div className=" nav-links-container">
-              <span
-                onClick={handleCategoryChange}
-                className={`${
-                  title === "all" ? "nav-link active" : "nav-link"
-                }`}
-              >
-                ALL
-              </span>
-              <span
-                onClick={handleCategoryChange}
-                className={`${
-                  title === "tech" ? "nav-link active" : "nav-link"
-                }`}
-              >
-                TECH
-              </span>
-              <span
-                onClick={handleCategoryChange}
-                className={`${
-                  title === "clothes" ? "nav-link active" : "nav-link"
-                }`}
-              >
-                CLOTHES
-              </span>
+              {categories.map((category) => (
+                <span
+                  key={category}
+                  onClick={handleCategoryChange}
+                  className={`${
+                    title === category ? "nav-link active" : "nav-link"
+                  }`}
+                >
+                  {category.toUpperCase()}
+                </span>
+              ))}
             </div>
-            {/* <div className="logo-container"> */}
+
             <Link to="/">
               <Logo />
             </Link>
-            {/* </div> */}
+
             <div className="icons-container">
               <CurrencySelector
                 updateTotalPrice={updateTotalPrice}
                 handleCurrencyChange={handleCurrencyChange}
                 selectedCurrency={selectedCurrency}
               />
-              {/* <div onClick={this.handleDropdownCart}> */}
+
               <EmptyCart onClick={this.handleDropdownCart} />
-              {/* </div> */}
 
               {cartCount ? (
                 <span className="total-items">{cartCount}</span>
@@ -100,7 +88,7 @@ class Navigation extends Component {
           )}
         </div>
         <Outlet />
-      </>
+      </Fragment>
     );
   }
 }

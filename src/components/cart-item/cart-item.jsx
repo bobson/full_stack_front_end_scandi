@@ -1,4 +1,4 @@
-import { Component, Fragment } from "react";
+import { Component } from "react";
 
 import AttributesForm from "../attributes-form/attributes-form";
 import Carousel from "./carousel/carousel";
@@ -19,10 +19,6 @@ export default class CartItem extends Component {
     const { cartItem, addToCart, removeFromCart, selectedCurrency } =
       this.props;
 
-    console.log(this.props);
-    // const { imageIndex } = this.state;
-    // console.log(imageIndex);
-
     const {
       name,
       attributes,
@@ -32,7 +28,7 @@ export default class CartItem extends Component {
       selectedAttributes,
       quantity,
     } = cartItem;
-    // console.log(this.props);
+
     return (
       <div className="cart-item-container">
         <div className="cart-item-options-container">

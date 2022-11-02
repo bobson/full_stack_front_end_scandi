@@ -17,10 +17,10 @@ export default class CartDropdown extends Component {
       totalPrice,
       handleDropdownCart,
     } = this.props;
-    console.log(cartItems);
+
     return (
       <div className="cart-dropdown-container">
-        <p>
+        <p className="bag">
           <span>My Bag, </span>
           <span>{cartCount} items</span>
         </p>

@@ -4,34 +4,30 @@
   .selected {
     display: flex;
     gap: 10px;
-    justify-content: end;
+    justify-content: center;
     align-items: center;
     cursor: pointer;
-    position: relative;
-    margin-right: 20px;
+    // position: relative;
+    margin-right: 10px;
+
     span {
-      font-size: 25px;
-      width: 35%;
+      font-size: 18px;
+      width: 20px;
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
     }
 
     .rotate {
       svg {
         transform: scaleY(-1);
-        transition: all 0.2s;
-        position: absolute;
-        bottom: 10px;
-        // margin: 0;
       }
     }
 
     .arrow {
       svg {
+        transition: transform 0.2s;
         width: 10px;
         height: 10px;
-        transition: transform 0.2s;
-        // margin: 0;
       }
     }
   }
@@ -46,21 +42,20 @@
     top: 40px;
     left: 0;
     width: 114px;
+    overflow: hidden;
     box-shadow: 0px 0px 12px 7px rgba(0, 0, 0, 0.06);
     -webkit-box-shadow: 0px 0px 12px 7px rgba(0, 0, 0, 0.06);
     -moz-box-shadow: 0px 0px 12px 7px rgba(0, 0, 0, 0.06);
-    overflow: hidden;
     z-index: 2;
-    // height: 200px;
     transition: height 0.2s linear;
+
     span {
       padding: 10px 25px;
-      font-weight: 600;
+      font-weight: 500;
       width: 100%;
-
-      // display: none;
-      // overflow: hidden;
       cursor: pointer;
+      font-size: 18px;
+      line-height: 160%;
       &:hover {
         background: #eeeeee;
       }

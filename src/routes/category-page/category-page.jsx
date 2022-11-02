@@ -9,7 +9,7 @@ export default class CategoryPage extends Component {
     const { title } = this.context.state;
     return (
       <div>
-        <h1 style={{ textTransform: "capitalize", fontWeight: 400 }}>
+        <h1 style={{ textTransform: "capitalize", fontWeight: "normal" }}>
           {title}
         </h1>
 

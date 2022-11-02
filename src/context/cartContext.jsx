@@ -1,15 +1,62 @@
-import React, { Component } from "react";
+import { Component, createContext } from "react";
 
-export const CartContext = React.createContext();
+export const CartContext = createContext();
 
 export class CartProvider extends Component {
+  getLocalData = (name) => {
+    const localData = window.localStorage.getItem(name);
+    return JSON.parse(localData);
+  };
+
   state = {
     title: "all",
-    cartItems: [],
-    cartCount: 0,
-    totalPrice: 0,
-    cartCurrency: { label: "", symbol: "" },
+    cartItems: this.getLocalData("CART_ITEMS") || [],
+    cartCount: this.getLocalData("CART_COUNT") || 0,
+    totalPrice: this.getLocalData("TOTAL_PRICE") || 0,
     selectedCurrency: { label: "USD", symbol: "$" },
+  };
+
+  setLocalData = (name, data) =>
+    window.localStorage.setItem(name, JSON.stringify(data));
+
+  handleCategoryChange = (event) =>
+    this.setState({ title: event.target.innerText.toLowerCase() });
+
+  updateCartCount = () => {
+    const cartCount = this.state.cartItems.reduce(
+      (total, cartItem) => total + cartItem.quantity,
+      0
+    );
+    this.setState(
+      {
+        cartCount,
+      },
+      () => this.setLocalData("CART_COUNT", cartCount)
+    );
+  };
+
+  updateTotalPrice = () => {
+    const { cartItems, selectedCurrency } = this.state;
+    const totalPrice = cartItems.reduce(
+      (total, cartItem) =>
+        total +
+        cartItem.quantity *
+          cartItem.prices.filter(
+            (price) => price.currency.label === selectedCurrency.label
+          )[0].amount,
+      0
+    );
+
+    this.setState(
+      {
+        totalPrice,
+      },
+      () => this.setLocalData("TOTAL_PRICE", totalPrice)
+    );
+  };
+
+  handleCurrencyChange = (label, symbol) => {
+    this.setState({ selectedCurrency: { label, symbol } });
   };
 
   haveSameAttributes = (obj1, obj2) => {
@@ -22,39 +69,6 @@ export class CartProvider extends Component {
       );
     }
     return false;
-  };
-
-  handleCategoryChange = (event) =>
-    this.setState({ title: event.target.innerText.toLowerCase() });
-
-  updateCartCount = () => {
-    this.setState({
-      cartCount: this.state.cartItems.reduce(
-        (total, cartItem) => total + cartItem.quantity,
-        0
-      ),
-    });
-  };
-
-  updateTotalPrice = () => {
-    const { cartItems, selectedCurrency } = this.state;
-
-    this.setState({
-      totalPrice: cartItems.reduce(
-        (total, cartItem) =>
-          total +
-          cartItem.quantity *
-            cartItem.prices.filter(
-              (price) => price.currency.label === selectedCurrency.label
-            )[0].amount,
-        0
-      ),
-    });
-    // }
-  };
-
-  handleCurrencyChange = (label, symbol) => {
-    this.setState({ selectedCurrency: { label, symbol } });
   };
 
   addToCart = (productToAdd, selectedAttributes = {}) => {
@@ -83,6 +97,7 @@ export class CartProvider extends Component {
         () => {
           this.updateCartCount();
           this.updateTotalPrice();
+          this.setLocalData("CART_ITEMS", newArr);
         }
       );
     }
@@ -101,6 +116,14 @@ export class CartProvider extends Component {
       () => {
         this.updateCartCount();
         this.updateTotalPrice();
+        this.setLocalData("CART_ITEMS", [
+          ...cartItems,
+          {
+            ...productToAdd,
+            selectedAttributes,
+            quantity: 1,
+          },
+        ]);
       }
     );
   };
@@ -123,6 +146,7 @@ export class CartProvider extends Component {
         () => {
           this.updateCartCount();
           this.updateTotalPrice();
+          this.setLocalData("CART_ITEMS", newArr);
         }
       );
     }
@@ -140,9 +164,14 @@ export class CartProvider extends Component {
       () => {
         this.updateCartCount();
         this.updateTotalPrice();
+        this.setLocalData("CART_ITEMS", newArr);
       }
     );
   };
+
+  // componentDidMount() {
+  //   this.setState({ cartItems: this.getLocalData() });
+  // }
 
   componentDidUpdate(_prevProps, prevState) {
     if (this.state.selectedCurrency.label !== prevState.selectedCurrency.label)
@@ -150,8 +179,6 @@ export class CartProvider extends Component {
   }
 
   render() {
-    // this.updateTotalPrice();
-    // console.log(this.context.selectedCurrency);
     const {
       state,
       addToCart,
@@ -160,6 +187,7 @@ export class CartProvider extends Component {
       handleCategoryChange,
       handleCurrencyChange,
     } = this;
+
     return (
       <CartContext.Provider
         value={{

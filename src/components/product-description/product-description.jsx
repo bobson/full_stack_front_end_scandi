@@ -64,7 +64,6 @@ export default class ProductDescription extends Component {
       },
       () => {
         const newId = JSON.stringify(this.state.selectedAttributes);
-        // console.log(newId);
         this.updateId(newId);
       }
     );
@@ -75,10 +74,7 @@ export default class ProductDescription extends Component {
     const { addToCart } = this.context;
     const { product, selectedAttributes, imageIndex } = this.state;
     const { selectedCurrency } = this.context.state;
-    // console.log(this.props.context);
-    // console.log(this.state.id);
-    // console.log(this.state.product);
-    // console.log(this.state.selectedAttributes);
+
     const { name, attributes, description, gallery, prices, brand } = product;
     if (this.state.loading) return <p>Loading...</p>;
     return (
