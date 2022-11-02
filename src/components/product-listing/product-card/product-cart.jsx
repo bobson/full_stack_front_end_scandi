@@ -1,8 +1,8 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
-import { CartContext } from "../../context/cartContext";
-import { ReactComponent as EmptyCart } from "../../assets/Empty Cart.svg";
-import CustomButton from "../custom-button/custom-button";
+import { CartContext } from "../../../context/cartContext";
+import { ReactComponent as EmptyCart } from "../../../assets/Empty Cart.svg";
+import CustomButton from "../../custom-button/custom-button";
 
 import "./styles.scss";
 

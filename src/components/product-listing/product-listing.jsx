@@ -2,7 +2,8 @@ import { Component } from "react";
 import { client } from "../../apollo/client";
 
 import { getProductsByCategory } from "../../apollo/queries";
-import ProductCard from "../product-card/product-cart";
+import Spinner from "../spinner/spinner";
+import ProductCard from "./product-card/product-cart";
 
 import "./styles.scss";
 
@@ -36,7 +37,7 @@ class ProductListing extends Component {
   render() {
     const { products, loading } = this.state;
 
-    if (loading) return <p>Loading</p>;
+    if (loading) return <Spinner />;
 
     return (
       <div className="products-container">

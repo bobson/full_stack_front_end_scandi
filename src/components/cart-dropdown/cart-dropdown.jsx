@@ -20,10 +20,15 @@ export default class CartDropdown extends Component {
 
     return (
       <div className="cart-dropdown-container">
-        <p className="bag">
+        <h4 className="bag">
           <span>My Bag, </span>
           <span>{cartCount} items</span>
-        </p>
+          {!cartItems.length && (
+            <p className="empty-cart">
+              You card ise empty! Start shopping now!
+            </p>
+          )}
+        </h4>
         {cartItems?.map((cartItem) => (
           <CartDropdownItem
             key={cartItem.id}
@@ -42,9 +47,11 @@ export default class CartDropdown extends Component {
         </div>
         <div className="dropdown-buttons">
           <Link to="cart" onClick={handleDropdownCart}>
-            <CustomButton>VIEW BAG</CustomButton>
+            <CustomButton inverted="true" disabled={!cartItems.length}>
+              VIEW BAG
+            </CustomButton>
           </Link>
-          <CustomButton>CHECKOUT</CustomButton>
+          <CustomButton disabled={!cartItems.length}>CHECKOUT</CustomButton>
         </div>
       </div>
     );

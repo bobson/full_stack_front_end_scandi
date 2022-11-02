@@ -102,7 +102,8 @@ export class CartProvider extends Component {
       );
     }
 
-    this.setState(
+    // Not existing item
+    return this.setState(
       {
         cartItems: [
           ...cartItems,
@@ -168,10 +169,6 @@ export class CartProvider extends Component {
       }
     );
   };
-
-  // componentDidMount() {
-  //   this.setState({ cartItems: this.getLocalData() });
-  // }
 
   componentDidUpdate(_prevProps, prevState) {
     if (this.state.selectedCurrency.label !== prevState.selectedCurrency.label)

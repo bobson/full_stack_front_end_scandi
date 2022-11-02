@@ -9,6 +9,7 @@ import "./styles.scss";
 import AttributesForm from "../attributes-form/attributes-form";
 import CustomButton from "../custom-button/custom-button";
 import { CartContext } from "../../context/cartContext";
+import Spinner from "../spinner/spinner";
 
 export default class ProductDescription extends Component {
   static contextType = CartContext;
@@ -76,7 +77,7 @@ export default class ProductDescription extends Component {
     const { selectedCurrency } = this.context.state;
 
     const { name, attributes, description, gallery, prices, brand } = product;
-    if (this.state.loading) return <p>Loading...</p>;
+    if (this.state.loading) return <Spinner />;
     return (
       <div className="product-page-container">
         <div className="images-container">

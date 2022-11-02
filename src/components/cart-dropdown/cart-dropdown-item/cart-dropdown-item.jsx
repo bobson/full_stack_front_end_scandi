@@ -73,7 +73,7 @@ export default class CartDropdownItem extends Component {
           <div className="quantity">
             <span
               onClick={() => {
-                addToCart(cartItem, cartItem.selectedAttributes);
+                addToCart(cartItem, selectedAttributes);
               }}
               className="quantity-button"
             >

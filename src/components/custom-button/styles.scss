@@ -34,4 +34,35 @@
       box-shadow: none;
     }
   }
+
+  &.inverted {
+    background-color: #ffffff;
+    color: #1d1f22;
+    border: 1px solid #1d1f22;
+
+    &:hover {
+      box-shadow: 0px 15px 25px -5px rgba(#1d1f22, 40%);
+    }
+
+    &:active {
+      box-shadow: 0px 4px 8px rgba(#1d1f22, 30%);
+      transform: scale(0.95);
+    }
+
+    &:disabled {
+      cursor: initial;
+      opacity: 0.5;
+
+      &:hover {
+        box-shadow: none;
+        cursor: inherit;
+      }
+
+      &:active {
+        transform: none;
+        box-shadow: none;
+        cursor: inherit;
+      }
+    }
+  }
 }
