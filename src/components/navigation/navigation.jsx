@@ -20,10 +20,11 @@ class Navigation extends Component {
     showDropdownCart: false,
   };
 
-  handleDropdownCart = () =>
+  handleDropdownCart = () => {
     this.setState((prevState) => ({
       showDropdownCart: !prevState.showDropdownCart,
     }));
+  };
 
   render() {
     const { title, cartCount, cartItems, totalPrice, selectedCurrency } =
@@ -68,23 +69,22 @@ class Navigation extends Component {
               <EmptyCart onClick={this.handleDropdownCart} />
 
               {cartCount ? (
-                <span className="total-items">{cartCount}</span>
+                <span onClick={this.handleDropdownCart} className="total-items">
+                  {cartCount}
+                </span>
               ) : null}
             </div>
           </div>
           {this.state.showDropdownCart && (
-            <>
-              <div className="dropdown" />
-              <CartDropdown
-                cartItems={cartItems}
-                cartCount={cartCount}
-                totalPrice={totalPrice}
-                addToCart={addToCart}
-                removeFromCart={removeFromCart}
-                selectedCurrency={selectedCurrency}
-                handleDropdownCart={this.handleDropdownCart}
-              />
-            </>
+            <CartDropdown
+              cartItems={cartItems}
+              cartCount={cartCount}
+              totalPrice={totalPrice}
+              addToCart={addToCart}
+              removeFromCart={removeFromCart}
+              selectedCurrency={selectedCurrency}
+              handleDropdownCart={this.handleDropdownCart}
+            />
           )}
         </div>
         <Outlet />

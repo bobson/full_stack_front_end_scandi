@@ -51,7 +51,7 @@ export default class CartDropdownItem extends Component {
 
           {attributes?.map(({ id, items, name, type }) => (
             <div className="dropdown-attributes" key={id}>
-              <p>{name.toUpperCase()}:</p>
+              <p>{name}:</p>
               <div className="dropdown-attributes-container">
                 {items?.map((item, idx) => (
                   <AttributesForm

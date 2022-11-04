@@ -1,7 +1,7 @@
 .swatch {
   width: 36px;
   height: 36px;
-  border: 1px solid #1d1f22;
+  outline: 2px solid #fff;
 }
 
 .button-label {
@@ -25,12 +25,12 @@
   }
 }
 
-.swatch-input:checked + .swatch {
-  border: 2px solid #5ece7b;
+.swatch-input:checked+.swatch {
+  outline: 2px solid #5ece7b;
 }
 
-.radio-input:checked + .button-label {
-  background: #2b2b2b;
+.radio-input:checked+.button-label {
+  background: #1D1F22;
   color: #efefef;
 }
 

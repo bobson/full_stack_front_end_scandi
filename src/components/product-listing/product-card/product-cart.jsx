@@ -15,9 +15,12 @@ class ProductCard extends Component {
     const { addToCart } = this.context;
 
     return (
-      <div
+      <Link
+        to={`product/${id}`}
         className={
-          inStock ? "product-cart-container" : "product-cart-container hover"
+          inStock
+            ? "product-cart-container"
+            : "product-cart-container out-of-stock_hover"
         }
       >
         {!inStock && (
@@ -25,22 +28,22 @@ class ProductCard extends Component {
             <h3>OUT OF STOCK</h3>
           </div>
         )}
-        <Link to={`product/${id}`} style={{ position: "relative" }}>
-          <img src={gallery[0]} alt={name} />
 
-          <div className="text-container">
-            <span className="name">{name}</span>
-            {prices.map(
-              ({ currency, amount }) =>
-                selectedCurrency.label === currency.label && (
-                  <span key={amount} className="price">
-                    {currency.symbol}
-                    {amount}
-                  </span>
-                )
-            )}
-          </div>
-        </Link>
+        <img src={gallery[0]} alt={name} />
+
+        <div className="text-container">
+          <span className="name">{name}</span>
+          {prices.map(
+            ({ currency, amount }) =>
+              selectedCurrency.label === currency.label && (
+                <span key={amount} className="price">
+                  {currency.symbol}
+                  {amount}
+                </span>
+              )
+          )}
+        </div>
+
         <div className="add-to-cart">
           <CustomButton
             onClick={() => addToCart(product)}
@@ -49,7 +52,7 @@ class ProductCard extends Component {
             <EmptyCart />
           </CustomButton>
         </div>
-      </div>
+      </Link>
     );
   }
 }

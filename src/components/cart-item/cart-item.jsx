@@ -41,7 +41,7 @@ export default class CartItem extends Component {
               {prices.map(
                 ({ currency, amount }) =>
                   selectedCurrency?.label === currency.label && (
-                    <p key={amount} className="price">
+                    <p key={amount}>
                       {currency.symbol}
                       {amount}
                     </p>

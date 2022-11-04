@@ -5,6 +5,7 @@
   width: 100%;
   padding-top: 30px;
   z-index: 1;
+  // gap: 50px;
 
   .images-container {
     display: flex;
@@ -21,11 +22,6 @@
       align-items: center;
       justify-content: center;
 
-      &:hover {
-        cursor: pointer;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-          0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      }
 
       img {
         width: 100%;
@@ -38,7 +34,7 @@
   .image-container {
     width: 50%;
     overflow: hidden;
-    margin: 0 20px;
+    margin-right: 50px;
 
     img {
       object-fit: cover;
@@ -55,19 +51,24 @@
     h3 {
       padding: 0;
       margin: 0;
+      font-size: 30px;
+      line-height: 27px;
+      margin-bottom: 20px;
     }
 
     p {
       margin-bottom: 2px;
-      font-weight: 600;
-      font-size: 16px;
+      font-weight: 700;
+      font-size: 18px;
     }
 
     .price {
       margin-top: 30px;
 
+
       p {
-        margin-top: 5px;
+        margin-top: 15px;
+        font-size: 24px;
       }
     }
 
@@ -79,9 +80,7 @@
 
     .description * {
       font-weight: 400;
-      font-size: 16px;
-      font-style: normal;
-      line-height: 159.96%;
+      font-family: 'Roboto';
     }
   }
 }

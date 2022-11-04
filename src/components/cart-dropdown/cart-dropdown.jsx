@@ -19,39 +19,43 @@ export default class CartDropdown extends Component {
     } = this.props;
 
     return (
-      <div className="cart-dropdown-container">
-        <h4 className="bag">
-          <span>My Bag, </span>
-          <span>{cartCount} items</span>
-          {!cartItems.length && (
-            <p className="empty-cart">
-              You card ise empty! Start shopping now!
-            </p>
-          )}
-        </h4>
-        {cartItems?.map((cartItem) => (
-          <CartDropdownItem
-            key={cartItem.id}
-            cartItem={cartItem}
-            addToCart={addToCart}
-            removeFromCart={removeFromCart}
-            selectedCurrency={selectedCurrency}
-          />
-        ))}
-        <div className="total">
-          <span>Total</span>
-          <span>
-            {selectedCurrency.symbol}
-            {totalPrice.toFixed(2)}
-          </span>
-        </div>
-        <div className="dropdown-buttons">
-          <Link to="cart" onClick={handleDropdownCart}>
-            <CustomButton inverted="true" disabled={!cartItems.length}>
-              VIEW BAG
-            </CustomButton>
-          </Link>
-          <CustomButton disabled={!cartItems.length}>CHECKOUT</CustomButton>
+      <div className="dropdown">
+        <div className="cart-dropdown-container">
+          <h4>
+            <span>My Bag, </span>
+            <span>{cartCount} items</span>
+            {!cartItems.length && (
+              <p className="empty-cart">
+                You card ise empty! Start shopping now!
+              </p>
+            )}
+          </h4>
+
+          {cartItems?.map((cartItem) => (
+            <CartDropdownItem
+              key={cartItem.id}
+              cartItem={cartItem}
+              addToCart={addToCart}
+              removeFromCart={removeFromCart}
+              selectedCurrency={selectedCurrency}
+            />
+          ))}
+
+          <div className="total">
+            <span>Total</span>
+            <span>
+              {selectedCurrency.symbol}
+              {totalPrice.toFixed(2)}
+            </span>
+          </div>
+          <div className="dropdown-buttons">
+            <Link to="cart" onClick={handleDropdownCart}>
+              <CustomButton inverted="true" disabled={!cartItems.length}>
+                VIEW BAG
+              </CustomButton>
+            </Link>
+            <CustomButton disabled={!cartItems.length}>CHECKOUT</CustomButton>
+          </div>
         </div>
       </div>
     );

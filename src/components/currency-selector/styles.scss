@@ -1,6 +1,7 @@
 .currency-selector-container {
   width: 100%;
   z-index: 6;
+
   .selected {
     display: flex;
     gap: 10px;
@@ -15,6 +16,7 @@
       width: 20px;
       display: flex;
       justify-content: flex-end;
+      font-weight: 500;
     }
 
     .rotate {
@@ -43,9 +45,9 @@
     left: 0;
     width: 114px;
     overflow: hidden;
-    box-shadow: 0px 0px 12px 7px rgba(0, 0, 0, 0.06);
-    -webkit-box-shadow: 0px 0px 12px 7px rgba(0, 0, 0, 0.06);
-    -moz-box-shadow: 0px 0px 12px 7px rgba(0, 0, 0, 0.06);
+    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+    -webkit-box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+    -moz-box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
     z-index: 2;
     transition: height 0.2s linear;
 
@@ -55,7 +57,7 @@
       width: 100%;
       cursor: pointer;
       font-size: 18px;
-      line-height: 160%;
+
       &:hover {
         background: #eeeeee;
       }

@@ -23,6 +23,7 @@ export default class AttributesForm extends Component {
         <label
           style={{
             backgroundColor: attrType === "swatch" && value,
+            border: value === "#FFFFFF" && "1px solid black",
           }}
           className={attrType === "swatch" ? "swatch" : "button-label"}
           htmlFor={htmlFor}

@@ -1,13 +1,20 @@
 .navigation-container {
-  margin: 20px auto;
+  z-index: 5;
+  background: #ffffff;
   position: relative;
+  height: 100px;
+
 
   .navigation {
-    width: 100%;
+    width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 30px;
+    padding: 20px 0;
+    position: fixed;
+    background: #ffffff;
+    top: 0;
+
 
     .nav-links-container {
       height: 100%;
@@ -21,7 +28,7 @@
         line-height: 120%;
         text-align: center;
         position: relative;
-        font-size: 16px;
+        font-weight: 400;
 
         &:hover {
           color: #5ece7b;
@@ -46,6 +53,7 @@
       .active {
         position: relative;
         color: #5ece7b;
+        font-weight: 600;
       }
 
       .active:before {
@@ -90,14 +98,6 @@
       }
     }
   }
-  .dropdown {
-    background: rgba(57, 55, 72, 0.22);
-    height: calc(100vh + 400px);
-    width: calc(100% + 40%);
-    position: absolute;
-    top: 45px;
-    left: -20%;
-    z-index: 2;
-    overflow: hidden;
-  }
+
+
 }
