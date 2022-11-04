@@ -10,18 +10,16 @@ import "./styles.scss";
 export default class CurrencySelector extends Component {
   state = {
     currencies: [],
-    loading: true,
     showDropdown: false,
   };
 
   updateCurrencies = async () => {
-    const { data, loading } = await client.query({
+    const { data } = await client.query({
       query: getCurrencies,
     });
 
     this.setState({
       currencies: data.currencies,
-      loading,
     });
   };
 

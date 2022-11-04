@@ -6,8 +6,6 @@
   top: 70px;
   left: -20%;
   z-index: 1;
-  // overflow: hidden;
-
 
   .cart-dropdown-container {
     width: 325px;
@@ -16,24 +14,18 @@
     position: absolute;
     top: 0;
     right: calc(10% - 20px);
-    z-index: 4;
     background: #ffffff;
     padding: 0 10px;
     max-height: 600px;
     overflow: scroll;
 
-
     h4 {
-
-
       span {
         &:nth-child(2) {
           font-weight: 400;
         }
       }
     }
-
-
 
     .total {
       display: flex;
@@ -61,7 +53,6 @@
       }
 
       button {
-        // margin: 5px;
         width: 48%;
         padding: 10px;
         font-size: 14px;

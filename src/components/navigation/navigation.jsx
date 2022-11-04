@@ -75,18 +75,18 @@ class Navigation extends Component {
               ) : null}
             </div>
           </div>
-          {this.state.showDropdownCart && (
-            <CartDropdown
-              cartItems={cartItems}
-              cartCount={cartCount}
-              totalPrice={totalPrice}
-              addToCart={addToCart}
-              removeFromCart={removeFromCart}
-              selectedCurrency={selectedCurrency}
-              handleDropdownCart={this.handleDropdownCart}
-            />
-          )}
         </div>
+        {this.state.showDropdownCart && (
+          <CartDropdown
+            cartItems={cartItems}
+            cartCount={cartCount}
+            totalPrice={totalPrice}
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+            selectedCurrency={selectedCurrency}
+            handleDropdownCart={this.handleDropdownCart}
+          />
+        )}
         <Outlet />
       </Fragment>
     );
