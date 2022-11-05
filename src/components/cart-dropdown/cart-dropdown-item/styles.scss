@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  gap: 5px;
+  gap: 20px;
   padding: 20px 0;
 
   .item-left-container {
@@ -16,12 +16,12 @@
 
     .title {
       font-weight: 300;
+
     }
 
     .price {
       p {
         font-weight: 500;
-        // padding: 10px 0;
       }
     }
 
