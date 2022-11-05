@@ -11,48 +11,41 @@ class ProductCard extends Component {
   render() {
     const { product } = this.props;
     const { id, gallery, name, prices, attributes, inStock } = product;
-    const { selectedCurrency } = this.context.state;
+    const { selectedCurrency, selectedAttributes } = this.context.state;
     const { addToCart } = this.context;
 
     return (
-      <Link
-        to={`product/${id}`}
-        className={
-          inStock
-            ? "product-cart-container"
-            : "product-cart-container out-of-stock_hover"
-        }
-      >
+      <div className={inStock ? "container" : "container out-of-stock_hover"}>
         {!inStock && (
           <div className="out-of-stock">
             <h3>OUT OF STOCK</h3>
           </div>
         )}
+        <Link to={`product/${id}`} className="product-cart-container">
+          <img src={gallery[0]} alt={name} />
 
-        <img src={gallery[0]} alt={name} />
-
-        <div className="text-container">
-          <span className="name">{name}</span>
-          {prices.map(
-            ({ currency, amount }) =>
-              selectedCurrency.label === currency.label && (
-                <span key={amount} className="price">
-                  {currency.symbol}
-                  {amount}
-                </span>
-              )
-          )}
-        </div>
-
+          <div className="text-container">
+            <span className="name">{name}</span>
+            {prices.map(
+              ({ currency, amount }) =>
+                selectedCurrency.label === currency.label && (
+                  <span key={amount} className="price">
+                    {currency.symbol}
+                    {amount}
+                  </span>
+                )
+            )}
+          </div>
+        </Link>
         <div className="add-to-cart">
           <CustomButton
-            onClick={() => addToCart(product)}
+            onClick={() => addToCart(product, selectedAttributes)}
             disabled={attributes.length}
           >
             <EmptyCart />
           </CustomButton>
         </div>
-      </Link>
+      </div>
     );
   }
 }

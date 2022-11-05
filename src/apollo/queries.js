@@ -7,8 +7,10 @@ export const getProductsByCategory = gql`
       products {
         id
         name
-        gallery
         inStock
+        gallery
+        description
+        category
         attributes {
           id
           name
@@ -26,6 +28,7 @@ export const getProductsByCategory = gql`
           }
           amount
         }
+        brand
       }
     }
   }

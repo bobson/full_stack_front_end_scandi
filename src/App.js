@@ -23,8 +23,8 @@ class App extends Component {
               <Route index element={<CategoryPage />} />
               <Route path="product/:id" element={<ProductPage />} />
               <Route path="cart" element={<CartPage />} />
-              <Route path="*" element={<PageNotFound />} />
             </Route>
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </CartProvider>
       </ApolloProvider>

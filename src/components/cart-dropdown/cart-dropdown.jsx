@@ -24,12 +24,12 @@ export default class CartDropdown extends Component {
           <h4>
             <span>My Bag, </span>
             <span>{cartCount} items</span>
-            {!cartItems.length && (
-              <p className="empty-cart">
-                You card ise empty! Start shopping now!
-              </p>
-            )}
           </h4>
+          {!cartItems.length && (
+            <p className="empty-cart">
+              You card ise empty! Start shopping now!
+            </p>
+          )}
 
           {cartItems?.map((cartItem) => (
             <CartDropdownItem

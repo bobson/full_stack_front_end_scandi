@@ -3,70 +3,24 @@
     .add-to-cart {
       display: none !important;
     }
-
-    cursor: initial !important;
-    box-shadow: none !important;
   }
 }
 
-.product-cart-container {
+.container {
   width: 100%;
-  // max-height: 300px;
-  // max-width: 250px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  height: 350px;
-  align-items: flex-start;
-  justify-content: center;
-  overflow: hidden;
+  height: 100%;
   position: relative;
-  z-index: 0;
-  margin: 30px auto;
 
+  // .out-of-stock_hover {
+  //   &:hover {
+  //     .add-to-cart {
+  //       display: none !important;
+  //     }
 
-  a {
-    margin: auto;
-  }
-
-
-
-  .out-of-stock {
-    opacity: 0.5;
-    background: #ffffff;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    z-index: 1;
-  }
-
-
-
-  img {
-    height: 80%;
-    object-fit: cover;
-    align-self: center;
-  }
-
-
-
-  .text-container {
-    display: flex;
-    flex-direction: column;
-    padding-top: 20px;
-    gap: 5px;
-
-    .name {
-      font-weight: 300;
-    }
-
-    .price {
-      font-weight: 500;
-    }
-  }
+  //     cursor: initial !important;
+  //     box-shadow: none !important;
+  //   }
+  // }
 
   .add-to-cart {
     position: absolute;
@@ -76,6 +30,7 @@
     right: 10%;
     bottom: 20%;
     display: none;
+
 
     button {
       width: 40px;
@@ -99,8 +54,64 @@
     .add-to-cart {
       display: block;
     }
+  }
 
-    cursor: pointer;
-    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+  .out-of-stock {
+    opacity: 0.5;
+    background: #ffffff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+    padding: 10px;
+
+
+  }
+
+  .product-cart-container {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    margin: 30px auto;
+
+
+    a {
+      margin: auto;
+    }
+
+    img {
+      height: 80%;
+      object-fit: cover;
+      align-self: center;
+    }
+
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      padding-top: 20px;
+      gap: 5px;
+
+      .name {
+        font-weight: 300;
+      }
+
+      .price {
+        font-weight: 500;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+    }
   }
 }
