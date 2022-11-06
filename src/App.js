@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 
 import { ApolloProvider } from "react-apollo";
 import { client } from "./apollo/client";
-import { Provider } from "react-redux";
+// import { Provider } from "react-redux";
 
 import { CartProvider } from "./context/cartContext";
 

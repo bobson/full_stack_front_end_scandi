@@ -40,39 +40,44 @@ class Navigation extends Component {
     return (
       <Fragment>
         <div className="navigation-container">
-          <div className="navigation">
-            <div className=" nav-links-container">
-              {categories.map((category) => (
-                <span
-                  key={category}
-                  onClick={handleCategoryChange}
-                  className={`${
-                    title === category ? "nav-link active" : "nav-link"
-                  }`}
-                >
-                  {category.toUpperCase()}
-                </span>
-              ))}
-            </div>
+          <div className="navigation-wrapper">
+            <div className="navigation">
+              <div className=" nav-links-container">
+                {categories.map((category) => (
+                  <span
+                    key={category}
+                    onClick={handleCategoryChange}
+                    className={`${
+                      title === category ? "nav-link active" : "nav-link"
+                    }`}
+                  >
+                    {category.toUpperCase()}
+                  </span>
+                ))}
+              </div>
 
-            <Link to="/">
-              <Logo />
-            </Link>
+              <Link to="/">
+                <Logo />
+              </Link>
 
-            <div className="icons-container">
-              <CurrencySelector
-                updateTotalPrice={updateTotalPrice}
-                handleCurrencyChange={handleCurrencyChange}
-                selectedCurrency={selectedCurrency}
-              />
+              <div className="icons-container">
+                <CurrencySelector
+                  updateTotalPrice={updateTotalPrice}
+                  handleCurrencyChange={handleCurrencyChange}
+                  selectedCurrency={selectedCurrency}
+                />
 
-              <EmptyCart onClick={this.handleDropdownCart} />
+                <EmptyCart onClick={this.handleDropdownCart} />
 
-              {cartCount ? (
-                <span onClick={this.handleDropdownCart} className="total-items">
-                  {cartCount}
-                </span>
-              ) : null}
+                {cartCount ? (
+                  <span
+                    onClick={this.handleDropdownCart}
+                    className="total-items"
+                  >
+                    {cartCount}
+                  </span>
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
