@@ -71,21 +71,21 @@ export default class CartItem extends Component {
           ))}
         </div>
         <div className="carousel-container">
-          <div className="quantity">
+          <div className="cart-item-quantity-container">
             <span
               onClick={() => {
                 addToCart(cartItem, cartItem.selectedAttributes);
               }}
-              className="quantity-button"
+              className="cart-item-quantity-button"
             >
               +
             </span>
-            <span>{quantity}</span>
+            <span className="cart-item-quantity">{quantity}</span>
             <span
               onClick={() => {
                 removeFromCart(cartItem);
               }}
-              className="quantity-button"
+              className="cart-item-quantity-button"
             >
               -
             </span>
