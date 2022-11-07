@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-import AttributesForm from "../../attributes-form/attributes-form";
+import AttributesForm from "../attributes-form/attributes-form";
 
 import "./styles.scss";
 
@@ -70,7 +70,7 @@ export default class CartDropdownItem extends Component {
           ))}
         </div>
         <div className="item-right-container">
-          <div className="quantity">
+          <div className="quantity-container">
             <span
               onClick={() => {
                 addToCart(cartItem, selectedAttributes);
@@ -79,7 +79,7 @@ export default class CartDropdownItem extends Component {
             >
               +
             </span>
-            <span>{quantity}</span>
+            <span className="quantity">{quantity}</span>
             <span
               onClick={() => {
                 removeFromCart(cartItem);

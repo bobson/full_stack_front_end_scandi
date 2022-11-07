@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import CustomButton from "../custom-button/custom-button";
 
-import CartDropdownItem from "./cart-dropdown-item/cart-dropdown-item";
+import CartDropdownItem from "../cart-dropdown-item/cart-dropdown-item";
 
 import "./styles.scss";
 
@@ -26,7 +26,7 @@ export default class CartDropdown extends Component {
             <span>{cartCount} items</span>
           </h4>
           {!cartItems.length && (
-            <p className="empty-cart">
+            <p className="empty-cart-page">
               You card ise empty! Start shopping now!
             </p>
           )}

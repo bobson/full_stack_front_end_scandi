@@ -15,10 +15,10 @@ export default class CartPage extends Component {
     const tax = totalPrice * 0.21;
 
     return (
-      <div>
+      <div className="cart-page-container">
         <h1>CART</h1>
         {!cartItems.length && (
-          <h3 className="empty-cart">
+          <h3 className="empty-cart-page">
             You card ise empty! Start shopping now!
           </h3>
         )}

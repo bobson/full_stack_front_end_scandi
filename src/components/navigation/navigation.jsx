@@ -28,6 +28,7 @@ class Navigation extends Component {
     const { categories } = this.props;
     const { title, cartCount, cartItems, totalPrice, selectedCurrency } =
       this.context.state;
+
     const {
       updateTotalPrice,
       handleCategoryChange,
@@ -35,6 +36,7 @@ class Navigation extends Component {
       removeFromCart,
       handleCurrencyChange,
     } = this.context;
+
     return (
       <Fragment>
         <div className="navigation-container">
@@ -54,7 +56,7 @@ class Navigation extends Component {
                 ))}
               </div>
 
-              <Link to="/">
+              <Link className="logo" to="/">
                 <Logo />
               </Link>
 
@@ -64,8 +66,9 @@ class Navigation extends Component {
                   handleCurrencyChange={handleCurrencyChange}
                   selectedCurrency={selectedCurrency}
                 />
-
-                <EmptyCart onClick={this.handleDropdownCart} />
+                <div className="empty-cart">
+                  <EmptyCart onClick={this.handleDropdownCart} />
+                </div>
 
                 {cartCount ? (
                   <span

@@ -1,7 +1,7 @@
 import { Component } from "react";
 
 import AttributesForm from "../attributes-form/attributes-form";
-import Carousel from "./carousel/carousel";
+import Carousel from "../carousel/carousel";
 
 import "./styles.scss";
 

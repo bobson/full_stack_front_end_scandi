@@ -1,20 +1,39 @@
 import React, { Component } from "react";
 
-import ProductListing from "../../components/product-listing/product-listing";
+import { Query } from "@apollo/client/react/components";
+
+import { getProductsByCategory } from "../../apollo/queries";
+
 import { CartContext } from "../../context/cartContext";
+import Spinner from "../../components/spinner/spinner";
+import ProductCard from "../../components/product-card/product-cart";
+
+import "./styles.scss";
 
 export default class CategoryPage extends Component {
   static contextType = CartContext;
   render() {
     const { title } = this.context.state;
     return (
-      <div>
-        <h1 style={{ textTransform: "capitalize", fontWeight: "normal" }}>
-          {title}
-        </h1>
+      <Query query={getProductsByCategory} variables={{ input: { title } }}>
+        {({ data, loading, error }) => {
+          if (loading) return <Spinner />;
+          if (error) return alert(error.message);
 
-        <ProductListing category={{ title }} />
-      </div>
+          return (
+            <>
+              <h1 style={{ textTransform: "capitalize", fontWeight: "normal" }}>
+                {data.category.name}
+              </h1>
+              <div className="products-container">
+                {data.category.products.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            </>
+          );
+        }}
+      </Query>
     );
   }
 }

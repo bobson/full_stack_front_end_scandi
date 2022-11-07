@@ -37,6 +37,7 @@ export class CartProvider extends Component {
 
   updateTotalPrice = () => {
     const { cartItems, selectedCurrency } = this.state;
+
     const totalPrice = cartItems.reduce(
       (total, cartItem) =>
         total +
@@ -73,6 +74,7 @@ export class CartProvider extends Component {
 
   addToCart = (productToAdd, selectedAttributes = {}) => {
     const { cartItems } = this.state;
+
     const existingCartItem = cartItems.find(
       (item) => item.id === productToAdd.id
     );
@@ -86,6 +88,7 @@ export class CartProvider extends Component {
         )
           ? {
               ...item,
+              // id: `${item.id}-${newId}`,
               quantity: item.quantity + 1,
             }
           : item;
@@ -101,7 +104,6 @@ export class CartProvider extends Component {
         }
       );
     }
-
     // Not existing item
     return this.setState(
       {
@@ -109,6 +111,7 @@ export class CartProvider extends Component {
           ...cartItems,
           {
             ...productToAdd,
+
             selectedAttributes,
             quantity: 1,
           },
@@ -121,6 +124,7 @@ export class CartProvider extends Component {
           ...cartItems,
           {
             ...productToAdd,
+
             selectedAttributes,
             quantity: 1,
           },

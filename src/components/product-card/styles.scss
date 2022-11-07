@@ -11,17 +11,6 @@
   height: 100%;
   position: relative;
 
-  // .out-of-stock_hover {
-  //   &:hover {
-  //     .add-to-cart {
-  //       display: none !important;
-  //     }
-
-  //     cursor: initial !important;
-  //     box-shadow: none !important;
-  //   }
-  // }
-
   .add-to-cart {
     position: absolute;
     width: 40px;
@@ -30,7 +19,6 @@
     right: 10%;
     bottom: 20%;
     display: none;
-
 
     button {
       width: 40px;
@@ -67,8 +55,6 @@
     position: absolute;
     z-index: 1;
     padding: 10px;
-
-
   }
 
   .product-cart-container {
@@ -82,7 +68,6 @@
     overflow: hidden;
     position: relative;
     margin: 30px auto;
-
 
     a {
       margin: auto;

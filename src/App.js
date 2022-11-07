@@ -2,9 +2,11 @@ import { Component } from "react";
 
 import { Routes, Route } from "react-router-dom";
 
-import { ApolloProvider } from "react-apollo";
+import { ApolloProvider } from "@apollo/client";
 import { client } from "./apollo/client";
 import { getAllCategories } from "./apollo/queries";
+
+import { Query } from "@apollo/client/react/components";
 
 import { CartProvider } from "./context/cartContext";
 
@@ -16,51 +18,37 @@ import PageNotFound from "./routes/page-not-found/page-not-found";
 import Spinner from "./components/spinner/spinner";
 
 class App extends Component {
-  state = {
-    categories: [],
-    loading: true,
-    error: "",
-  };
-
-  updateCategories = async () => {
-    try {
-      const { data, loading } = await client.query({
-        query: getAllCategories,
-      });
-
-      this.setState({
-        categories: data.categories,
-        loading,
-      });
-    } catch (error) {
-      this.setState({ loading: false, error: error.message });
-    }
-  };
-
-  componentDidMount() {
-    this.updateCategories();
-  }
   render() {
-    const { loading, error, categories } = this.state;
-    if (loading) return <Spinner />;
-    if (error)
-      return (
-        <div className="page-not-found">
-          <h2>{error}</h2>
-        </div>
-      );
     return (
       <ApolloProvider client={client}>
-        <CartProvider>
-          <Routes>
-            <Route path="/" element={<Navigation categories={categories} />}>
-              <Route index element={<CategoryPage />} />
-              <Route path="product/:id" element={<ProductPage />} />
-              <Route path="cart" element={<CartPage />} />
-            </Route>
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </CartProvider>
+        <Query query={getAllCategories}>
+          {({ data, loading, error }) => {
+            if (loading) return <Spinner />;
+
+            if (error)
+              return (
+                <div className="page-not-found">
+                  <h2>{error.message}</h2>
+                </div>
+              );
+
+            return (
+              <CartProvider>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={<Navigation categories={data.categories} />}
+                  >
+                    <Route index element={<CategoryPage />} />
+                    <Route path="product/:id" element={<ProductPage />} />
+                    <Route path="cart" element={<CartPage />} />
+                  </Route>
+                  <Route path="*" element={<PageNotFound />} />
+                </Routes>
+              </CartProvider>
+            );
+          }}
+        </Query>
       </ApolloProvider>
     );
   }
