@@ -14,13 +14,17 @@ export default class CurrencySelector extends Component {
   };
 
   updateCurrencies = async () => {
-    const { data } = await client.query({
-      query: getCurrencies,
-    });
+    try {
+      const { data } = await client.query({
+        query: getCurrencies,
+      });
 
-    this.setState({
-      currencies: data.currencies,
-    });
+      this.setState({
+        currencies: data.currencies,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   componentDidMount() {
@@ -36,9 +40,9 @@ export default class CurrencySelector extends Component {
   };
 
   render() {
-    const { currencies, showDropdown } = this.state;
     const { updateTotalPrice, handleCurrencyChange, selectedCurrency } =
       this.props;
+    const { currencies, showDropdown } = this.state;
     const { handleDropdown, collapse } = this;
 
     return (

@@ -22,12 +22,16 @@ export default class ProductDescription extends Component {
   };
 
   updateProducts = async (id) => {
-    const { data, loading } = await client.query({
-      query: getProductById,
-      variables: { id },
-    });
+    try {
+      const { data, loading } = await client.query({
+        query: getProductById,
+        variables: { id },
+      });
 
-    this.setState({ product: data.product, loading, id: data.product.id });
+      this.setState({ product: data.product, loading, id: data.product.id });
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   componentDidMount() {

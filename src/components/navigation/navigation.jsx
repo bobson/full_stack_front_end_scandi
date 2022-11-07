@@ -6,12 +6,10 @@ import { ReactComponent as EmptyCart } from "../../assets/Empty Cart.svg";
 import { Link, Outlet } from "react-router-dom";
 
 import CurrencySelector from "../currency-selector/currency-selector";
-import { CartContext } from "../../context/cartContext";
 import CartDropdown from "../cart-dropdown/cart-dropdown";
+import { CartContext } from "../../context/cartContext";
 
 import "./styles.scss";
-
-const categories = ["all", "tech", "clothes"];
 
 class Navigation extends Component {
   static contextType = CartContext;
@@ -27,6 +25,7 @@ class Navigation extends Component {
   };
 
   render() {
+    const { categories } = this.props;
     const { title, cartCount, cartItems, totalPrice, selectedCurrency } =
       this.context.state;
     const {
@@ -36,22 +35,21 @@ class Navigation extends Component {
       removeFromCart,
       handleCurrencyChange,
     } = this.context;
-
     return (
       <Fragment>
         <div className="navigation-container">
           <div className="navigation-wrapper">
             <div className="navigation">
               <div className=" nav-links-container">
-                {categories.map((category) => (
+                {categories?.map(({ name }) => (
                   <span
-                    key={category}
+                    key={name}
                     onClick={handleCategoryChange}
                     className={`${
-                      title === category ? "nav-link active" : "nav-link"
+                      title === name ? "nav-link active" : "nav-link"
                     }`}
                   >
-                    {category.toUpperCase()}
+                    {name.toUpperCase()}
                   </span>
                 ))}
               </div>

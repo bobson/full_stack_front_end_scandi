@@ -14,15 +14,19 @@ class ProductListing extends Component {
   };
 
   updateProducts = async (input) => {
-    const { data, loading } = await client.query({
-      query: getProductsByCategory,
-      variables: { input },
-    });
+    try {
+      const { data, loading } = await client.query({
+        query: getProductsByCategory,
+        variables: { input },
+      });
 
-    this.setState({
-      products: data.category.products,
-      loading,
-    });
+      this.setState({
+        products: data.category.products,
+        loading,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   componentDidMount() {
