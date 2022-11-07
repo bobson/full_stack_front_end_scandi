@@ -1,7 +1,7 @@
 import { Component, Fragment } from "react";
 
-import { ReactComponent as Logo } from "../../assets/logo.svg";
-import { ReactComponent as EmptyCart } from "../../assets/Empty Cart.svg";
+import { ReactComponent as Logo } from "../../assets/Logo.svg";
+import { ReactComponent as EmptyCart } from "../../assets/EmptyCart-dark.svg";
 
 import { Link, Outlet } from "react-router-dom";
 

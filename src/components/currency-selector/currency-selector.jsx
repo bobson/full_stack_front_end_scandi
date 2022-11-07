@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { getCurrencies } from "../../apollo/queries";
 import { Query } from "@apollo/client/react/components";
 
-import { ReactComponent as Arrow } from "../../assets/Vector.svg";
+import { ReactComponent as Arrow } from "../../assets/Arrow.svg";
 
 import "./styles.scss";
 
