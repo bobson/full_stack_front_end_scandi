@@ -23,7 +23,6 @@ class ProductCard extends Component {
         )}
         <Link to={`product/${id}`} className="product-cart-container">
           <img src={gallery[0]} alt={name} />
-
           <div className="text-container">
             <span className="name">{name}</span>
             {prices.map(

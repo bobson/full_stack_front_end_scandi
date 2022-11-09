@@ -21,16 +21,14 @@ export default class CategoryPage extends Component {
           if (error) return alert(error.message);
 
           return (
-            <>
-              <h1 style={{ textTransform: "capitalize", fontWeight: "normal" }}>
-                {data.category.name}
-              </h1>
+            <div className="cart-page-container">
+              <h1>{data.category.name}</h1>
               <div className="products-container">
                 {data.category.products.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>
-            </>
+            </div>
           );
         }}
       </Query>

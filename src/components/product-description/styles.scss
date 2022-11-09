@@ -4,47 +4,35 @@
   align-items: flex-start;
   width: 100%;
   padding-top: 60px;
-  z-index: 1;
   gap: 10px;
 
   .images-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 15%;
+    gap: 10px;
 
-    .small-image {
-      width: 100%;
-      overflow: hidden;
+    img {
+      height: 80px;
+      width: 79px;
       cursor: pointer;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-
-      img {
-        width: 100%;
-        object-fit: contain;
-        max-height: 150px;
-      }
     }
   }
 
   .image-container {
-    width: 55%;
     overflow: hidden;
     margin-right: 50px;
+    width: 610px;
 
     img {
-      object-fit: contain;
-      max-height: 800px;
+      object-fit: cover;
+      max-height: 70vh;
       width: 100%;
     }
   }
 
   .description-container {
-    width: 30%;
+    width: 300px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -67,7 +55,6 @@
     .price {
       margin-top: 30px;
 
-
       p {
         margin-top: 15px;
         font-size: 24px;
@@ -88,7 +75,7 @@
 
     .description * {
       font-weight: 400;
-      font-family: 'Roboto';
+      font-family: "Roboto";
     }
   }
 }

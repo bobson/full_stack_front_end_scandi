@@ -1,5 +1,6 @@
 import { Component, Fragment } from "react";
-import parse from "html-react-parser";
+
+import { Markup } from "interweave";
 
 import { getProductById } from "../../apollo/queries";
 
@@ -36,7 +37,11 @@ export default class ProductDescription extends Component {
     const newId = JSON.stringify(this.state.selectedAttributes);
 
     return (
-      <Query query={getProductById} variables={{ id: this.props.id }}>
+      <Query
+        query={getProductById}
+        nextFetchPolicy="network-only"
+        variables={{ id: this.props.id }}
+      >
         {({ data, loading, error }) => {
           if (loading) return <Spinner />;
           if (error) return alert(error.message);
@@ -46,13 +51,12 @@ export default class ProductDescription extends Component {
             <div className="product-page-container">
               <div className="images-container">
                 {gallery?.map((img, idx) => (
-                  <div
+                  <img
                     onClick={() => this.setState({ imageIndex: idx })}
                     key={img}
-                    className="small-image"
-                  >
-                    <img src={img} alt={name} />
-                  </div>
+                    src={img}
+                    alt={name}
+                  />
                 ))}
               </div>
               <div className="image-container">
@@ -118,7 +122,9 @@ export default class ProductDescription extends Component {
                 </CustomButton>
 
                 {description && (
-                  <div className="description">{parse(`${description}`)}</div>
+                  <div className="description">
+                    <Markup content={description} />
+                  </div>
                 )}
               </div>
             </div>

@@ -4,22 +4,27 @@
   position: relative;
   height: 80px;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
 
   .navigation-wrapper {
     width: 100%;
     background: #ffffff;
     position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
     height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
 
+
     .navigation {
       width: 90%;
+      height: 100%;
+      max-width: 1200px;
       display: flex;
+      position: relative;
       justify-content: space-between;
       align-items: center;
       background: #ffffff;
@@ -74,18 +79,17 @@
       .logo {
         display: flex;
         align-items: center;
-        svg {
-          height: 28.63px;
-          width: 31.18;
-        }
+        justify-content: center;
+        height: 41px;
+        width: 41px;
       }
 
       .icons-container {
         display: flex;
         align-items: center;
         justify-content: center;
-        // position: relative;
         width: 114px;
+        margin-right: 10px;
 
         .empty-cart {
           margin-right: 10px;
@@ -110,7 +114,7 @@
           font-size: 14px;
           position: absolute;
           top: 21px;
-          right: 5%;
+          right: 8px;
           font-weight: 700;
           cursor: pointer;
         }

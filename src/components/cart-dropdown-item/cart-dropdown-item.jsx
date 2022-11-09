@@ -31,45 +31,45 @@ export default class CartDropdownItem extends Component {
     return (
       <div className="cart-dropdown-item-container">
         <div className="item-left-container">
-          <div className="title">
-            <p>{brand}</p>
-            <p>{name}</p>
-          </div>
-          {prices && (
-            <div className="price">
-              {prices.map(
-                ({ currency, amount }) =>
-                  selectedCurrency?.label === currency.label && (
-                    <p key={amount} className="price">
-                      {currency.symbol}
-                      {amount}
-                    </p>
-                  )
-              )}
+          <div className="item-description">
+            <div className="title">
+              <p>{brand}</p>
+              <p>{name}</p>
             </div>
-          )}
-
-          {attributes?.map(({ id, items, name, type }) => (
-            <div className="dropdown-attributes" key={id}>
-              <p>{name}:</p>
-              <div className="dropdown-attributes-container">
-                {items?.map((item, idx) => (
-                  <AttributesForm
-                    key={item.id}
-                    attrType={type}
-                    id={`${cartItem.id}-${item.id}`}
-                    value={item.value}
-                    name={`dropdown-${cartItem.id}-${name}`}
-                    htmlFor={`${cartItem.id}-${item.id}`}
-                    defaultChecked={selectedAttributes[name] === item.value}
-                    disabled
-                  />
-                ))}
+            {prices && (
+              <div className="price">
+                {prices.map(
+                  ({ currency, amount }) =>
+                    selectedCurrency?.label === currency.label && (
+                      <p key={amount} className="price">
+                        {currency.symbol}
+                        {amount}
+                      </p>
+                    )
+                )}
               </div>
-            </div>
-          ))}
-        </div>
-        <div className="item-right-container">
+            )}
+
+            {attributes?.map(({ id, items, name, type }) => (
+              <div className="dropdown-attributes" key={id}>
+                <p>{name}:</p>
+                <div className="dropdown-attributes-container">
+                  {items?.map((item, idx) => (
+                    <AttributesForm
+                      key={item.id}
+                      attrType={type}
+                      id={`${cartItem.id}-${item.id}`}
+                      value={item.value}
+                      name={`dropdown-${cartItem.id}-${name}`}
+                      htmlFor={`${cartItem.id}-${item.id}`}
+                      defaultChecked={selectedAttributes[name] === item.value}
+                      disabled
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
           <div className="quantity-container">
             <span
               onClick={() => {
@@ -89,8 +89,9 @@ export default class CartDropdownItem extends Component {
               -
             </span>
           </div>
-          <img src={gallery[0]} alt={name} />
         </div>
+
+        <img src={gallery[0]} alt={name} />
       </div>
     );
   }

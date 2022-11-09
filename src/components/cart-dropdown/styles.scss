@@ -1,4 +1,4 @@
-.dropdown {
+.dropdown-container {
   background: rgba(57, 55, 72, 0.22);
   height: 100vh;
   width: 100%;
@@ -7,58 +7,61 @@
   left: 0;
   z-index: 3;
 
-  .cart-dropdown-container {
-    width: 325px;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    right: 5%;
-    background: #ffffff;
-    padding: 0 10px;
-    max-height: 70vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    gap: 32px;
-    padding: 32px 16px;
+  .dropdown {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
 
-    h4 {
-      span {
-        &:nth-child(2) {
-          font-weight: 400;
+    .cart-dropdown-container {
+      width: 325px;
+      display: flex;
+      flex-direction: column;
+      float: right;
+      background: #ffffff;
+      max-height: 70vh;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      gap: 32px;
+      padding: 32px 16px;
+
+      h4 {
+        span {
+          &:nth-child(2) {
+            font-weight: 400;
+          }
         }
       }
-    }
 
-    .total {
-      display: flex;
-      justify-content: space-between;
-      font-family: Roboto;
-      font-weight: 500;
-      margin: 20px 0;
-    }
+      .total {
+        display: flex;
+        justify-content: space-between;
+        font-family: Roboto;
+        font-weight: 500;
+        margin: 20px 0;
+      }
 
-    .dropdown-buttons {
-      display: flex;
-      justify-content: space-between;
-      padding-bottom: 10px;
+      .dropdown-buttons {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 10px;
 
-      a {
-        width: 48%;
+        a {
+          width: 48%;
 
-        &:hover {
-          cursor: initial;
+          &:hover {
+            cursor: initial;
+          }
+
+          button {
+            width: 100%;
+          }
         }
 
         button {
-          width: 100%;
+          width: 48%;
+          padding: 10px;
+          font-size: 14px;
         }
-      }
-
-      button {
-        width: 48%;
-        padding: 10px;
-        font-size: 14px;
       }
     }
   }

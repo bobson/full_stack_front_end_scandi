@@ -1,14 +1,13 @@
 .swatch {
   width: 36px;
   height: 36px;
-  outline: 2px solid #fff;
+  outline: 2px solid #ffffff;
 }
 
 .button-label {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #1d1f22;
   width: 63px;
   height: 45px;
   border: 1px solid #1d1f22;
@@ -20,18 +19,18 @@
   font-size: 14px;
 
   &:hover {
-    background: darken(#efefef, 5%);
-    color: darken(#292929, 10%);
+    background: darken(#ffffff, 5%);
+    color: darken(#1d1f22, 10%);
   }
 }
 
-.swatch-input:checked+.swatch {
+.swatch-input:checked + .swatch {
   outline: 2px solid #5ece7b;
 }
 
-.radio-input:checked+.button-label {
-  background: #1D1F22;
-  color: #efefef;
+.radio-input:checked + .button-label {
+  background: #1d1f22;
+  color: #ffffff;
 }
 
 .hidden {
