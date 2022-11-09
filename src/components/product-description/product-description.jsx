@@ -45,10 +45,24 @@ export default class ProductDescription extends Component {
         {({ data, loading, error }) => {
           if (loading) return <Spinner />;
           if (error) return alert(error.message);
-          const { name, attributes, description, gallery, prices, brand } =
-            data.product;
+          const {
+            name,
+            attributes,
+            description,
+            gallery,
+            prices,
+            brand,
+            inStock,
+          } = data.product;
           return (
-            <div className="product-page-container">
+            <div
+              className={
+                inStock
+                  ? "product-page-container"
+                  : "product-page-container out-of-stock"
+              }
+            >
+              {!inStock && <h2>OUT OF STOCK</h2>}
               <div className="images-container">
                 {gallery?.map((img, idx) => (
                   <img
@@ -64,12 +78,16 @@ export default class ProductDescription extends Component {
               </div>
 
               <div className="description-container">
-                <h3>{brand}</h3>
-                <h3 style={{ fontWeight: 400 }}>{name}</h3>
+                <div className="description-title">
+                  <h3>{brand}</h3>
+                  <h3 style={{ fontWeight: 400 }}>{name}</h3>
+                </div>
 
                 {attributes?.map(({ id, items, name, type }) => (
                   <Fragment key={id}>
-                    <p>{name.toUpperCase()}:</p>
+                    <span className="attributes-title">
+                      {name.toUpperCase()}:
+                    </span>
                     <div
                       className="attributes-container"
                       onChange={handleChange}
@@ -82,6 +100,7 @@ export default class ProductDescription extends Component {
                           value={item.value}
                           attrType={type}
                           htmlFor={`${name}-${item.id}`}
+                          disabled={!inStock}
                         />
                       ))}
                     </div>
@@ -103,23 +122,27 @@ export default class ProductDescription extends Component {
                   </div>
                 )}
 
-                <CustomButton
-                  onClick={() => {
-                    addToCart(
-                      {
-                        ...data.product,
-                        id: `${data.product.id}-${newId}`,
-                      },
-                      selectedAttributes
-                    );
-                  }}
-                  disabled={
-                    Object.keys(selectedAttributes).length !==
-                    attributes?.length
-                  }
-                >
-                  ADD TO CART
-                </CustomButton>
+                {!inStock ? (
+                  <CustomButton disabled>OUT OF STOCK</CustomButton>
+                ) : (
+                  <CustomButton
+                    onClick={() => {
+                      addToCart(
+                        {
+                          ...data.product,
+                          id: `${data.product.id}-${newId}`,
+                        },
+                        selectedAttributes
+                      );
+                    }}
+                    disabled={
+                      Object.keys(selectedAttributes).length !==
+                      attributes?.length
+                    }
+                  >
+                    ADD TO CART
+                  </CustomButton>
+                )}
 
                 {description && (
                   <div className="description">

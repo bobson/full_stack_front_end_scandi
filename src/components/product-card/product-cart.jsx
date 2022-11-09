@@ -16,12 +16,12 @@ class ProductCard extends Component {
 
     return (
       <div className={inStock ? "container" : "container out-of-stock_hover"}>
-        {!inStock && (
-          <div className="out-of-stock">
-            <h3>OUT OF STOCK</h3>
-          </div>
-        )}
         <Link to={`product/${id}`} className="product-cart-container">
+          {!inStock && (
+            <div className="out-of-stock">
+              <h3>OUT OF STOCK</h3>
+            </div>
+          )}
           <img src={gallery[0]} alt={name} />
           <div className="text-container">
             <span className="name">{name}</span>

@@ -51,9 +51,9 @@ export default class CartItem extends Component {
           )}
 
           {attributes?.map(({ id, items, name, type }) => (
-            <div className="attributes" key={id}>
+            <div className="attributes-container" key={id}>
               <p>{name.toUpperCase()}:</p>
-              <div className="attributes-container">
+              <div className="attributes">
                 {items?.map((item, idx) => (
                   <AttributesForm
                     key={item.id}

@@ -2,6 +2,10 @@
   width: 36px;
   height: 36px;
   outline: 2px solid #ffffff;
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
 }
 
 .button-label {
@@ -16,21 +20,34 @@
   font-family: "Source Sans Pro";
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  line-height: 18px;
 
   &:hover {
-    background: darken(#ffffff, 5%);
-    color: darken(#1d1f22, 10%);
+    font-size: 20px;
+    transition: all 0.1s;
+    cursor: pointer;
   }
+}
+
+.radio-input:checked + .button-label {
+  background: #1d1f22;
+  color: #ffffff;
+  font-size: 20px;
+  transition: all 0.2s;
+}
+
+.radio-input:disabled + .button-label {
+  font-size: inherit;
+  cursor: inherit;
 }
 
 .swatch-input:checked + .swatch {
   outline: 2px solid #5ece7b;
 }
 
-.radio-input:checked + .button-label {
-  background: #1d1f22;
-  color: #ffffff;
+.swatch-input:disabled + .swatch {
+  transform: none;
+  cursor: inherit;
 }
 
 .hidden {
