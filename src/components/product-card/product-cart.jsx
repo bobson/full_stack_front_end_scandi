@@ -16,7 +16,7 @@ class ProductCard extends Component {
 
     return (
       <div className={inStock ? "container" : "container out-of-stock_hover"}>
-        <Link to={`product/${id}`} className="product-cart-container">
+        <Link to={`product/${id}/`} className="product-cart-container">
           {!inStock && (
             <div className="out-of-stock">
               <h3>OUT OF STOCK</h3>

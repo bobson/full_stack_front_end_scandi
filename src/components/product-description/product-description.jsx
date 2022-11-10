@@ -39,6 +39,7 @@ export default class ProductDescription extends Component {
     return (
       <Query
         query={getProductById}
+        fetchPolicy="network-only"
         nextFetchPolicy="network-only"
         variables={{ id: this.props.id }}
       >

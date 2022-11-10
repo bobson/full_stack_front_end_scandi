@@ -40,7 +40,7 @@ class App extends Component {
                     element={<Navigation categories={data.categories} />}
                   >
                     <Route index element={<CategoryPage />} />
-                    <Route path="product/:id" element={<ProductPage />} />
+                    <Route path="product/:id/" element={<ProductPage />} />
                     <Route path="cart" element={<CartPage />} />
                   </Route>
                   <Route path="*" element={<PageNotFound />} />
