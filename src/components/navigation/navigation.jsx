@@ -24,6 +24,10 @@ class Navigation extends Component {
     }));
   };
 
+  collapse = () => {
+    this.setState({ showDropdownCart: false });
+  };
+
   render() {
     const { categories } = this.props;
     const { title, cartCount, cartItems, totalPrice, selectedCurrency } =
@@ -51,7 +55,7 @@ class Navigation extends Component {
                       title === name ? "nav-link active" : "nav-link"
                     }`}
                   >
-                    {name.toUpperCase()}
+                    <Link to="/">{name.toUpperCase()}</Link>
                   </span>
                 ))}
               </div>
@@ -66,8 +70,28 @@ class Navigation extends Component {
                   handleCurrencyChange={handleCurrencyChange}
                   selectedCurrency={selectedCurrency}
                 />
-                <div className="empty-cart">
+                <div
+                  className="empty-cart"
+                  tabIndex={0}
+                  onBlur={(e) => {
+                    if (!e.currentTarget.contains(e.relatedTarget)) {
+                      this.collapse();
+                    }
+                  }}
+                >
                   <EmptyCart onClick={this.handleDropdownCart} />
+                  {this.state.showDropdownCart && (
+                    <CartDropdown
+                      cartItems={cartItems}
+                      cartCount={cartCount}
+                      totalPrice={totalPrice}
+                      addToCart={addToCart}
+                      removeFromCart={removeFromCart}
+                      selectedCurrency={selectedCurrency}
+                      handleDropdownCart={this.handleDropdownCart}
+                      collapse={this.collapse}
+                    />
+                  )}
                 </div>
 
                 {cartCount ? (
@@ -82,17 +106,6 @@ class Navigation extends Component {
             </div>
           </div>
         </div>
-        {this.state.showDropdownCart && (
-          <CartDropdown
-            cartItems={cartItems}
-            cartCount={cartCount}
-            totalPrice={totalPrice}
-            addToCart={addToCart}
-            removeFromCart={removeFromCart}
-            selectedCurrency={selectedCurrency}
-            handleDropdownCart={this.handleDropdownCart}
-          />
-        )}
         <Outlet />
       </Fragment>
     );
