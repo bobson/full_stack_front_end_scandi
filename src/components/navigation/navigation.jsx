@@ -1,7 +1,6 @@
 import { Component, Fragment } from "react";
 
 import { ReactComponent as Logo } from "../../assets/logo.svg";
-import { ReactComponent as EmptyCart } from "../../assets/EmptyCart-dark.svg";
 
 import { Link, Outlet } from "react-router-dom";
 
@@ -13,20 +12,6 @@ import "./styles.scss";
 
 class Navigation extends Component {
   static contextType = CartContext;
-
-  state = {
-    showDropdownCart: false,
-  };
-
-  handleDropdownCart = () => {
-    this.setState((prevState) => ({
-      showDropdownCart: !prevState.showDropdownCart,
-    }));
-  };
-
-  collapse = () => {
-    this.setState({ showDropdownCart: false });
-  };
 
   render() {
     const { categories } = this.props;
@@ -70,38 +55,14 @@ class Navigation extends Component {
                   handleCurrencyChange={handleCurrencyChange}
                   selectedCurrency={selectedCurrency}
                 />
-                <div
-                  className="empty-cart"
-                  tabIndex={0}
-                  onBlur={(e) => {
-                    if (!e.currentTarget.contains(e.relatedTarget)) {
-                      this.collapse();
-                    }
-                  }}
-                >
-                  <EmptyCart onClick={this.handleDropdownCart} />
-                  {this.state.showDropdownCart && (
-                    <CartDropdown
-                      cartItems={cartItems}
-                      cartCount={cartCount}
-                      totalPrice={totalPrice}
-                      addToCart={addToCart}
-                      removeFromCart={removeFromCart}
-                      selectedCurrency={selectedCurrency}
-                      handleDropdownCart={this.handleDropdownCart}
-                      collapse={this.collapse}
-                    />
-                  )}
-                </div>
-
-                {cartCount ? (
-                  <span
-                    onClick={this.handleDropdownCart}
-                    className="total-items"
-                  >
-                    {cartCount}
-                  </span>
-                ) : null}
+                <CartDropdown
+                  cartItems={cartItems}
+                  cartCount={cartCount}
+                  totalPrice={totalPrice}
+                  addToCart={addToCart}
+                  removeFromCart={removeFromCart}
+                  selectedCurrency={selectedCurrency}
+                />
               </div>
             </div>
           </div>
