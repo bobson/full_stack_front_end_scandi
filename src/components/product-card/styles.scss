@@ -8,7 +8,6 @@
 
 .container {
   position: relative;
-  // padding: 50px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,17 +65,17 @@
 
 .product-cart-container {
   width: 100%;
-  padding: 10px;
-  display: flex;
+  padding: 5px;
+  display: inline-flex;
   flex-direction: column;
   max-height: 400px;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-between;
   overflow: hidden;
   position: relative;
 
   img {
-    height: 85%;
+    height: 80%;
     width: 100%;
     object-fit: cover;
   }
