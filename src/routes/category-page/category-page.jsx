@@ -15,7 +15,12 @@ export default class CategoryPage extends Component {
   render() {
     const { title } = this.context.state;
     return (
-      <Query query={getProductsByCategory} variables={{ input: { title } }}>
+      <Query
+        query={getProductsByCategory}
+        fetchPolicy="network-only"
+        nextFetchPolicy="cache-first"
+        variables={{ input: { title } }}
+      >
         {({ data, loading, error }) => {
           if (loading) return <Spinner />;
           if (error) return alert(error.message);

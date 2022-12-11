@@ -14,12 +14,14 @@ class ProductCard extends Component {
     const { selectedCurrency } = this.context.state;
     const { addToCart } = this.context;
 
-    const selectedAttributes = () => {
+    const selectedAttributes = (attr) => {
       const obj = {};
-      attributes.map((attr) => (obj[attr.name] = attr.items[0].value));
+      attr.map((attribute) => (obj[attribute.name] = attribute.items[0].value));
 
       return obj;
     };
+
+    const newId = JSON.stringify(selectedAttributes(attributes));
 
     return (
       <div className={inStock ? "container" : "container out-of-stock_hover"}>
@@ -45,7 +47,12 @@ class ProductCard extends Component {
         </Link>
         <div className="add-to-cart">
           <CustomButton
-            onClick={() => addToCart(product, selectedAttributes())}
+            onClick={() =>
+              addToCart(
+                { ...product, id: `${product.id}-${newId}` },
+                selectedAttributes(attributes)
+              )
+            }
           >
             <EmptyCart />
           </CustomButton>

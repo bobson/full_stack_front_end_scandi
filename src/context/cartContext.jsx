@@ -88,7 +88,6 @@ export class CartProvider extends Component {
         )
           ? {
               ...item,
-              // id: `${item.id}-${newId}`,
               quantity: item.quantity + 1,
             }
           : item;
@@ -111,7 +110,6 @@ export class CartProvider extends Component {
           ...cartItems,
           {
             ...productToAdd,
-
             selectedAttributes,
             quantity: 1,
           },
@@ -124,7 +122,6 @@ export class CartProvider extends Component {
           ...cartItems,
           {
             ...productToAdd,
-
             selectedAttributes,
             quantity: 1,
           },
