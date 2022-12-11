@@ -20,13 +20,12 @@ export const getProductsByCategory = gql`
         description
         category
         attributes {
-          id
-          name
           type
+          name
           items {
+            id
             displayValue
             value
-            id
           }
         }
         prices {
@@ -52,7 +51,6 @@ export const getProductById = gql`
       description
       category
       attributes {
-        id
         name
         type
         items {

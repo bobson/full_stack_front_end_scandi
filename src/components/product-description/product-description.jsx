@@ -37,12 +37,7 @@ export default class ProductDescription extends Component {
     const newId = JSON.stringify(this.state.selectedAttributes);
 
     return (
-      <Query
-        query={getProductById}
-        fetchPolicy="network-only"
-        nextFetchPolicy="network-only"
-        variables={{ id: this.props.id }}
-      >
+      <Query query={getProductById} variables={{ id: this.props.id }}>
         {({ data, loading, error }) => {
           if (loading) return <Spinner />;
           if (error) return alert(error.message);
@@ -84,8 +79,8 @@ export default class ProductDescription extends Component {
                   <h3 style={{ fontWeight: 400 }}>{name}</h3>
                 </div>
 
-                {attributes?.map(({ id, items, name, type }) => (
-                  <Fragment key={id}>
+                {attributes?.map(({ items, name, type }) => (
+                  <Fragment key={name}>
                     <span className="attributes-title">
                       {name.toUpperCase()}:
                     </span>
