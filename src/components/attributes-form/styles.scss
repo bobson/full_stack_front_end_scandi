@@ -1,0 +1,56 @@
+.swatch {
+  width: 36px;
+  height: 36px;
+  outline: 2px solid #ffffff;
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+  display: flex;
+}
+
+.button-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 63px;
+  height: 45px;
+  border: 1px solid #1d1f22;
+  user-select: none;
+  z-index: 0;
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+
+  &:hover {
+    font-size: 20px;
+    transition: all 0.1s;
+    cursor: pointer;
+  }
+}
+
+.radio-input:checked + .button-label {
+  background: #1d1f22;
+  color: #ffffff;
+  font-size: 20px;
+  transition: all 0.2s;
+}
+
+.radio-input:disabled + .button-label {
+  font-size: inherit;
+  cursor: inherit;
+}
+
+.swatch-input:checked + .swatch {
+  outline: 2px solid #5ece7b;
+}
+
+.swatch-input:disabled + .swatch {
+  transform: none;
+  cursor: inherit;
+}
+
+.hidden {
+  display: none;
+}
