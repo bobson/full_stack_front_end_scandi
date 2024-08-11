@@ -13,7 +13,7 @@ export class CartProvider extends Component {
     cartItems: this.getLocalData("CART_ITEMS") || [],
     cartCount: this.getLocalData("CART_COUNT") || 0,
     totalPrice: this.getLocalData("TOTAL_PRICE") || 0,
-    selectedCurrency: { label: "USD", symbol: "$" },
+    // selectedCurrency: { label: "USD", symbol: "$" },
   };
 
   setLocalData = (name, data) =>
@@ -36,15 +36,10 @@ export class CartProvider extends Component {
   };
 
   updateTotalPrice = () => {
-    const { cartItems, selectedCurrency } = this.state;
+    const { cartItems } = this.state;
 
     const totalPrice = cartItems.reduce(
-      (total, cartItem) =>
-        total +
-        cartItem.quantity *
-          cartItem.prices.filter(
-            (price) => price.currency.label === selectedCurrency.label
-          )[0].amount,
+      (total, cartItem) => total + cartItem.quantity * cartItem.prices.amount,
       0
     );
 
@@ -56,9 +51,13 @@ export class CartProvider extends Component {
     );
   };
 
-  handleCurrencyChange = (label, symbol) => {
-    this.setState({ selectedCurrency: { label, symbol } });
-  };
+  // Update total price and cart count when cart items change
+  componentDidUpdate(_prevProps, prevState) {
+    if (this.state.cartItems !== prevState.cartItems) {
+      this.updateCartCount();
+      this.updateTotalPrice();
+    }
+  }
 
   haveSameAttributes = (obj1, obj2) => {
     const obj1Length = Object.keys(obj1).length;
@@ -96,9 +95,8 @@ export class CartProvider extends Component {
         {
           cartItems: newArr,
         },
+        // Update local storage with new cart items
         () => {
-          this.updateCartCount();
-          this.updateTotalPrice();
           this.setLocalData("CART_ITEMS", newArr);
         }
       );
@@ -116,8 +114,6 @@ export class CartProvider extends Component {
         ],
       },
       () => {
-        this.updateCartCount();
-        this.updateTotalPrice();
         this.setLocalData("CART_ITEMS", [
           ...cartItems,
           {
@@ -146,8 +142,6 @@ export class CartProvider extends Component {
           cartItems: newArr,
         },
         () => {
-          this.updateCartCount();
-          this.updateTotalPrice();
           this.setLocalData("CART_ITEMS", newArr);
         }
       );
@@ -164,17 +158,10 @@ export class CartProvider extends Component {
         cartItems: newArr,
       },
       () => {
-        this.updateCartCount();
-        this.updateTotalPrice();
         this.setLocalData("CART_ITEMS", newArr);
       }
     );
   };
-
-  componentDidUpdate(_prevProps, prevState) {
-    if (this.state.selectedCurrency.label !== prevState.selectedCurrency.label)
-      this.updateTotalPrice();
-  }
 
   render() {
     const {

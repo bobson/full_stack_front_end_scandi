@@ -1,22 +1,19 @@
 import { Component } from "react";
 
-import AttributesForm from "../attributes-form/attributes-form";
+import AttributesForm from "../../attributes-form/attributes-form";
 
 import "./styles.scss";
+import { toKebabCase } from "../../../assets/functions";
 
 export default class CartDropdownItem extends Component {
   shouldComponentUpdate(prevProps, _prevState) {
-    if (
-      this.props.cartItem.quantity !== prevProps.cartItem.quantity ||
-      this.props.selectedCurrency !== prevProps.selectedCurrency
-    )
+    if (this.props.cartItem.quantity !== prevProps.cartItem.quantity)
       return true;
     else return false;
   }
 
   render() {
-    const { cartItem, addToCart, removeFromCart, selectedCurrency } =
-      this.props;
+    const { cartItem, addToCart, removeFromCart } = this.props;
 
     const {
       name,
@@ -38,22 +35,20 @@ export default class CartDropdownItem extends Component {
             </div>
             {prices && (
               <div className="price">
-                {prices.map(
-                  ({ currency, amount }) =>
-                    selectedCurrency?.label === currency.label && (
-                      <p key={amount} className="price">
-                        {currency.symbol}
-                        {amount}
-                      </p>
-                    )
-                )}
+                <p className="price">
+                  {prices.currency_symbol}
+                  {prices.amount}
+                </p>
               </div>
             )}
 
             {attributes?.map(({ items, name, type }) => (
               <div className="dropdown-attributes" key={name}>
                 <p>{name}:</p>
-                <div className="dropdown-attributes-container">
+                <div
+                  className="dropdown-attributes-container"
+                  data-testid={`cart-item-attribute-${toKebabCase(name)}`}
+                >
                   {items?.map((item) => (
                     <AttributesForm
                       key={item.id}
@@ -64,6 +59,7 @@ export default class CartDropdownItem extends Component {
                       htmlFor={`${cartItem.id}-${item.id}`}
                       defaultChecked={selectedAttributes[name] === item.value}
                       disabled
+                      dataTestId={name}
                     />
                   ))}
                 </div>
@@ -76,6 +72,7 @@ export default class CartDropdownItem extends Component {
                 addToCart(cartItem, selectedAttributes);
               }}
               className="quantity-button"
+              data-testid="cart-item-amount-increase"
             >
               +
             </span>
@@ -85,6 +82,7 @@ export default class CartDropdownItem extends Component {
                 removeFromCart(cartItem);
               }}
               className="quantity-button"
+              data-testid="cart-item-amount-decrease"
             >
               -
             </span>

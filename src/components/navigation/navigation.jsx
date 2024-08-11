@@ -4,64 +4,67 @@ import { ReactComponent as Logo } from "../../assets/logo.svg";
 
 import { Link, Outlet } from "react-router-dom";
 
-import CurrencySelector from "../currency-selector/currency-selector";
 import CartDropdown from "../cart-dropdown/cart-dropdown";
 import { CartContext } from "../../context/cartContext";
 
 import "./styles.scss";
+import { getAllCategories } from "../../apollo/queries";
+
+import { useQuery } from "@apollo/client";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 class Navigation extends Component {
   static contextType = CartContext;
 
   render() {
-    const { categories } = this.props;
-    const { title, cartCount, cartItems, totalPrice, selectedCurrency } =
-      this.context.state;
+    const { title, cartCount, cartItems, totalPrice } = this.context.state;
 
-    const {
-      updateTotalPrice,
-      handleCategoryChange,
-      addToCart,
-      removeFromCart,
-      handleCurrencyChange,
-    } = this.context;
+    const { handleCategoryChange, addToCart, removeFromCart } = this.context;
+
+    const RenderNavLinks = () => {
+      const { data, loading, error } = useQuery(getAllCategories);
+      if (loading) return <Skeleton />;
+      if (error) return `Error! ${error}`;
+      return (
+        <div className=" nav-links-container">
+          {data.categories?.map(({ name }) => (
+            <span
+              key={name}
+              data-testid={
+                title === name ? "active-category-link" : "category-link"
+              }
+              onClick={handleCategoryChange}
+              className={`${title === name ? "nav-link active" : "nav-link"}`}
+            >
+              <Link to="/">{name.toUpperCase()}</Link>
+            </span>
+          ))}
+        </div>
+      );
+    };
 
     return (
       <Fragment>
         <div className="navigation-container">
           <div className="navigation-wrapper">
             <div className="navigation">
-              <div className=" nav-links-container">
-                {categories?.map(({ name }) => (
-                  <span
-                    key={name}
-                    onClick={handleCategoryChange}
-                    className={`${
-                      title === name ? "nav-link active" : "nav-link"
-                    }`}
-                  >
-                    <Link to="/">{name.toUpperCase()}</Link>
-                  </span>
-                ))}
-              </div>
+              <RenderNavLinks
+                title={title}
+                handleCategoryChange={handleCategoryChange}
+              />
 
               <Link className="logo" to="/">
                 <Logo />
               </Link>
 
               <div className="icons-container">
-                <CurrencySelector
-                  updateTotalPrice={updateTotalPrice}
-                  handleCurrencyChange={handleCurrencyChange}
-                  selectedCurrency={selectedCurrency}
-                />
                 <CartDropdown
                   cartItems={cartItems}
                   cartCount={cartCount}
                   totalPrice={totalPrice}
                   addToCart={addToCart}
                   removeFromCart={removeFromCart}
-                  selectedCurrency={selectedCurrency}
                 />
               </div>
             </div>

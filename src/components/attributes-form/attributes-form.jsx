@@ -2,13 +2,33 @@ import { Component, Fragment } from "react";
 
 import "./styles.scss";
 
+import { toKebabCase } from "../../assets/functions";
+
 export default class AttributesForm extends Component {
   render() {
-    const { id, name, value, attrType, defaultChecked, disabled, htmlFor } =
-      this.props;
+    const {
+      id,
+      name,
+      value,
+      attrType,
+      defaultChecked,
+      disabled,
+      htmlFor,
+      dataTestId,
+    } = this.props;
+
+    const dataTesting = dataTestId
+      ? defaultChecked
+        ? `cart-item-attribute-${toKebabCase(dataTestId)}-${toKebabCase(
+            dataTestId
+          )}-selected`
+        : `cart-item-attribute-${toKebabCase(dataTestId)}-${toKebabCase(
+            dataTestId
+          )}`
+      : null;
 
     return (
-      <Fragment>
+      <div data-testid={dataTesting}>
         <input
           type="radio"
           className={
@@ -30,7 +50,7 @@ export default class AttributesForm extends Component {
         >
           {attrType !== "swatch" && value}
         </label>
-      </Fragment>
+      </div>
     );
   }
 }

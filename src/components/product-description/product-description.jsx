@@ -11,6 +11,8 @@ import AttributesForm from "../attributes-form/attributes-form";
 import CustomButton from "../custom-button/custom-button";
 import { CartContext } from "../../context/cartContext";
 import Spinner from "../spinner/spinner";
+import { toKebabCase } from "../../assets/functions";
+import Skeleton from "react-loading-skeleton";
 
 export default class ProductDescription extends Component {
   static contextType = CartContext;
@@ -33,13 +35,12 @@ export default class ProductDescription extends Component {
     const { handleChange } = this;
     const { addToCart } = this.context;
     const { selectedAttributes, imageIndex } = this.state;
-    const { selectedCurrency } = this.context.state;
     const newId = JSON.stringify(this.state.selectedAttributes);
 
     return (
       <Query query={getProductById} variables={{ id: this.props.id }}>
         {({ data, loading, error }) => {
-          if (loading) return <Spinner />;
+          if (loading) return <Skeleton count={10} />;
           if (error) return alert(error.message);
           const {
             name,
@@ -59,7 +60,8 @@ export default class ProductDescription extends Component {
               }
             >
               {!inStock && <h2>OUT OF STOCK</h2>}
-              <div className="images-container">
+
+              <div className="images-container" data-testid="product-gallery">
                 {gallery?.map((img, idx) => (
                   <img
                     onClick={() => this.setState({ imageIndex: idx })}
@@ -69,7 +71,7 @@ export default class ProductDescription extends Component {
                   />
                 ))}
               </div>
-              <div className="image-container">
+              <div className="image-container" data-testid="product-gallery">
                 {gallery && <img src={gallery[imageIndex]} alt={name} />}
               </div>
 
@@ -87,6 +89,7 @@ export default class ProductDescription extends Component {
                     <div
                       className="attributes-container"
                       onChange={handleChange}
+                      data-testid={`product-attribute-${toKebabCase(name)}`}
                     >
                       {items?.map((item) => (
                         <AttributesForm
@@ -106,20 +109,18 @@ export default class ProductDescription extends Component {
                 {prices && (
                   <div className="price">
                     <p>PRICE:</p>
-                    {prices.map(
-                      ({ currency, amount }) =>
-                        selectedCurrency.label === currency.label && (
-                          <p key={amount} className="price">
-                            {currency.symbol}
-                            {amount}
-                          </p>
-                        )
-                    )}
+
+                    <p key={prices.amount} className="price">
+                      {prices.currency_symbol}
+                      {prices.amount}
+                    </p>
                   </div>
                 )}
 
                 {!inStock ? (
-                  <CustomButton disabled>OUT OF STOCK</CustomButton>
+                  <CustomButton data-testid="add-to-cart" disabled>
+                    OUT OF STOCK
+                  </CustomButton>
                 ) : (
                   <CustomButton
                     onClick={() => {
@@ -135,13 +136,17 @@ export default class ProductDescription extends Component {
                       Object.keys(selectedAttributes).length !==
                       attributes?.length
                     }
+                    data-testid="add-to-cart"
                   >
                     ADD TO CART
                   </CustomButton>
                 )}
 
                 {description && (
-                  <div className="description">
+                  <div
+                    className="description"
+                    data-testid="product-description"
+                  >
                     <Markup content={description} />
                   </div>
                 )}

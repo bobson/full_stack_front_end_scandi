@@ -1,9 +1,9 @@
 import { Component } from "react";
-import { Link } from "react-router-dom";
+
 import CustomButton from "../custom-button/custom-button";
 import { ReactComponent as EmptyCart } from "../../assets/EmptyCart-dark.svg";
 
-import CartDropdownItem from "../cart-dropdown-item/cart-dropdown-item";
+import CartDropdownItem from "./cart-dropdown-item/cart-dropdown-item";
 
 import "./styles.scss";
 import { Fragment } from "react";
@@ -12,6 +12,13 @@ export default class CartDropdown extends Component {
   state = {
     showDropdownCart: false,
   };
+
+  // Open cart dropdown when an item is added to the cart
+  componentDidUpdate(prevProps) {
+    if (prevProps.cartCount !== this.props.cartCount) {
+      this.setState({ showDropdownCart: true });
+    }
+  }
 
   handleDropdownCart = () => {
     this.setState((prevState) => ({
@@ -24,14 +31,8 @@ export default class CartDropdown extends Component {
   };
 
   render() {
-    const {
-      cartItems,
-      cartCount,
-      addToCart,
-      removeFromCart,
-      selectedCurrency,
-      totalPrice,
-    } = this.props;
+    const { cartItems, cartCount, addToCart, removeFromCart, totalPrice } =
+      this.props;
 
     return (
       <div
@@ -43,66 +44,62 @@ export default class CartDropdown extends Component {
           }
         }}
       >
-        <EmptyCart onClick={this.handleDropdownCart} />
+        <div onClick={this.handleDropdownCart}>
+          <EmptyCart data-testid="cart-btn" />
+          {cartCount ? <span className="total-items">{cartCount}</span> : null}
+        </div>
 
-        {this.state.showDropdownCart && (
-          <Fragment>
-            <div className="dropdown" onClick={this.collapse} />
-            <div className="cart-dropdown-container">
-              <h4>
-                <span>My Bag, </span>
-                <span>{cartCount} items</span>
-              </h4>
-              {!cartItems.length && (
-                <p className="empty-cart-page">
-                  You card ise empty! Start shopping now!
-                </p>
-              )}
+        <div
+          className={`dropdown-content ${
+            this.state.showDropdownCart ? "show" : "hide"
+          }`}
+        >
+          {this.state.showDropdownCart && (
+            <Fragment>
+              <div className="dropdown" onClick={this.collapse} />
 
-              {cartItems?.map((cartItem) => (
-                <CartDropdownItem
-                  key={cartItem.id}
-                  cartItem={cartItem}
-                  addToCart={addToCart}
-                  removeFromCart={removeFromCart}
-                  selectedCurrency={selectedCurrency}
-                />
-              ))}
+              <div className="cart-dropdown-container">
+                <h4>
+                  <span>My Bag, </span>
+                  <span>
+                    {cartCount}
+                    {cartCount > 1 ? " items" : " item"}
+                  </span>
+                </h4>
+                {!cartItems.length && (
+                  <p className="empty-cart-page">
+                    You card ise empty! Start shopping now!
+                  </p>
+                )}
 
-              <div className="total">
-                <span>Total</span>
-                <span>
-                  {selectedCurrency.symbol}
-                  {totalPrice.toFixed(2)}
-                </span>
-              </div>
-              <div
-                className="dropdown-buttons"
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                <Link to="cart">
-                  <CustomButton
-                    onClick={this.collapse}
-                    inverted="true"
-                    disabled={!cartItems.length}
-                  >
-                    VIEW BAG
-                  </CustomButton>
-                </Link>
-                <CustomButton disabled={!cartItems.length}>
-                  CHECKOUT
+                {cartItems?.map((cartItem) => (
+                  <CartDropdownItem
+                    key={cartItem.id}
+                    cartItem={cartItem}
+                    addToCart={addToCart}
+                    removeFromCart={removeFromCart}
+                  />
+                ))}
+
+                <div className="total" data-testid="cart-total">
+                  <span>Total</span>
+                  <span data-testid="cart-item-amount">
+                    ${totalPrice.toFixed(2)}
+                  </span>
+                </div>
+                <CustomButton
+                  disabled={!cartItems.length}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    // this.collapse();
+                  }}
+                >
+                  PLACE ORDER
                 </CustomButton>
               </div>
-            </div>
-          </Fragment>
-        )}
-        {cartCount ? (
-          <span onClick={this.handleDropdownCart} className="total-items">
-            {cartCount}
-          </span>
-        ) : null}
+            </Fragment>
+          )}
+        </div>
       </div>
     );
   }
