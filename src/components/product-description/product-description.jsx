@@ -10,7 +10,6 @@ import "./styles.scss";
 import AttributesForm from "../attributes-form/attributes-form";
 import CustomButton from "../custom-button/custom-button";
 import { CartContext } from "../../context/cartContext";
-import Spinner from "../spinner/spinner";
 import { toKebabCase } from "../../assets/functions";
 import Skeleton from "react-loading-skeleton";
 
