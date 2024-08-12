@@ -13,7 +13,6 @@ export class CartProvider extends Component {
     cartItems: this.getLocalData("CART_ITEMS") || [],
     cartCount: this.getLocalData("CART_COUNT") || 0,
     totalPrice: this.getLocalData("TOTAL_PRICE") || 0,
-    // selectedCurrency: { label: "USD", symbol: "$" },
   };
 
   setLocalData = (name, data) =>

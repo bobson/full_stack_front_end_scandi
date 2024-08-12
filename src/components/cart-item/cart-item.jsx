@@ -16,8 +16,7 @@ export default class CartItem extends Component {
   }
 
   render() {
-    const { cartItem, addToCart, removeFromCart, selectedCurrency } =
-      this.props;
+    const { cartItem, addToCart, removeFromCart } = this.props;
 
     const {
       name,
@@ -38,11 +37,10 @@ export default class CartItem extends Component {
           </div>
           {prices && (
             <div className="price">
-                    <p >
-                      {prices.currency_label}
-                      {prices.amount}
-                    </p>
-            
+              <p>
+                {prices.currency_label}
+                {prices.amount}
+              </p>
             </div>
           )}
 
